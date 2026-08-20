@@ -248,6 +248,21 @@
   }
   dl.detail dd { margin: 0; color: var(--ink); }
   dl.detail ul { margin: 4px 0 0; padding-left: 16px; color: var(--ink-soft); }
+
+  /* le détail des tarifs est replié : on montre le prix d'entrée, le reste au clic */
+  details.tarif > summary {
+    cursor: pointer; list-style: none;
+    display: inline-flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline;
+  }
+  details.tarif > summary::-webkit-details-marker { display: none; }
+  details.tarif > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  .tarif .more {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 999px;
+    padding: 1px 7px; white-space: nowrap;
+  }
+  details.tarif > summary:hover .more { background: var(--accent-soft); }
+  details.tarif[open] > summary .more { display: none; }
   dl.detail li { margin: 1px 0; }
 
   .card-foot { margin-top: auto; padding: 14px 20px 18px; display: grid; gap: 12px; }
@@ -489,8 +504,7 @@
   <header class="masthead">
     <div class="eyebrow">Orne · Calvados · Sarthe · Mayenne — été 2026</div>
     <h1>Qu'est-ce qu'on fait,<br><em>les cousines&nbsp;?</em></h1>
-    <p class="standfirst">Dix-neuf sorties repérées autour d'Aunou : villages de grès roussard, châteaux à douves, un point culminant à 417&nbsp;m, deux zoos qui font doublon et une grotte pour les jours de pluie. Filtrez, comparez, choisissez.</p>
-    <p class="meta-note">Infos vérifiées le 20 août 2026 sur les sites officiels et les offices de tourisme.<br>Notes Google via Wanderlog — arrondies, le nombre d'avis bouge.</p>
+    <p class="meta-note">Infos vérifiées le 20 août 2026 sur les sites officiels et les offices de tourisme.</p>
   </header>
 
   <div class="sticky-bar">
@@ -501,7 +515,6 @@
     <nav class="toolbar" aria-label="Filtres">
       <input class="search" id="q" type="search" placeholder="Chercher un lieu, une commune, un détail…" aria-label="Chercher">
       <div class="chips" id="chips">
-        <button class="chip" data-f="gratuit" aria-pressed="false">Gratuit</button>
         <button class="chip" data-f="pluie" aria-pressed="false">Jour de pluie</button>
         <button class="chip" data-f="court" aria-pressed="false">≤ 1 h 30</button>
         <button class="chip" data-f="journee" aria-pressed="false">Journée entière</button>
@@ -565,15 +578,15 @@ const DATA = [
     lat: 48.3797, lon: -0.0526, km: 33, court: "Saint-Céneri",
     ville: "Saint-Céneri-le-Gérei (61)",
     lead: "Jardin remarquable privé de Michèle et Philippe Manson, à deux pas du village.",
-    adresse: "Les Jardins de la Mansonière, 61250 Saint-Céneri-le-Gérei",
+    adresse: "Les Jardins de la Mansonnière, 61250 Saint-Céneri-le-Gérei",
     horaires: ["Du 1<sup>er</sup> juin au 31 août 2026 : tous les jours <b>sauf lundi, mardi et mercredi</b>, 14 h 30 – 18 h 30 (dernière entrée 18 h)", "Du 1<sup>er</sup> au 13 septembre : samedi et dimanche uniquement"],
     duree: "~1 h 30", bucket: "court",
     tarif: "8 € adulte · 4 € enfant (3–12 ans)",
     gratuit: false, pluie: false,
     note: null,
     lien: "https://mansoniere.fr/",
-    fin: "2026-08-31",
-    notes: "Ferme le 31 août — <strong>à caler tôt</strong>. À enchaîner avec le village de Saint-Céneri, c'est le même endroit."
+    fin: "2026-08-31", finQuoi: "Passe en week-end",
+    notes: "Après le 31 août, ouvert samedi et dimanche seulement, jusqu'au 13 septembre — <strong>à caler tôt</strong>. À enchaîner avec le village de Saint-Céneri, c'est le même endroit."
   },
   {
     n: "Village de Saint-Céneri-le-Gérei",
@@ -600,7 +613,7 @@ const DATA = [
     gratuit: false, pluie: true,
     note: {v: "4,6", c: "~1 440"},
     lien: "https://www.chateau-carrouges.fr/",
-    notes: "Parking gratuit. La gratuité −26 ans peut changer le budget du tout au tout : <strong>vérifier l'âge de chacune</strong>. Avec Sassy et le Haras du Pin, ça fait une belle journée « châteaux »."
+    notes: "Parking gratuit. La gratuité −26 ans peut changer le budget du tout au tout : <strong>vérifier l'âge de chacune</strong>."
   },
   {
     n: "Spaycific'Zoo",
@@ -629,7 +642,7 @@ const DATA = [
     note: {v: "4,5", c: "~1 165", quoi: "le château"},
     lien: "https://www.ornetourisme.com/visites-loisirs/cite-medievale-de-domfront/",
     tel: "02 33 38 53 97",
-    notes: "Route longue depuis Aunou : à combiner avec <strong>Bagnoles-de-l'Orne</strong>, à 20 min."
+    notes: ""
   },
   {
     n: "Ouistreham — Le Grand Bunker",
@@ -658,7 +671,7 @@ const DATA = [
     note: {v: "4,5", c: "~5 300"},
     lien: "https://www.chateau-guillaume-leconquerant.fr/",
     tel: "02 31 41 61 44",
-    notes: "Parking gratuit. Trois activités à Falaise → <strong>journée groupée</strong>."
+    notes: "Parking gratuit."
   },
   {
     n: "Musée des Automates",
@@ -666,14 +679,14 @@ const DATA = [
     ville: "Falaise (14)",
     lead: "Collection d'automates de vitrines de grands magasins, entièrement couvert.",
     adresse: "Boulevard de la Libération, 14700 Falaise",
-    horaires: ["<b>Du mardi au samedi — fermé dimanche, lundi et jours fériés.</b> Dernière entrée 1 h avant fermeture.", "Mardi : 10 h – 12 h et 14 h – 18 h", "Mercredi : 10 h – 12 h 30 et 13 h 30 – 18 h", "Jeudi : 14 h – 19 h", "Vendredi : 14 h – 18 h", "Samedi : 9 h 30 – 13 h et 14 h – 17 h"],
+    horaires: ["Mardi : 10 h – 12 h et 14 h – 18 h", "Mercredi : 10 h – 12 h 30 et 13 h 30 – 18 h", "Jeudi : 14 h – 19 h", "Vendredi : 14 h – 18 h", "Samedi : 9 h 30 – 13 h et 14 h – 17 h", "<b>Fermé dimanche, lundi et jours fériés.</b> Dernière entrée 1 h avant la fermeture."],
     duree: "~1 h", bucket: "court",
     tarif: "5 € adulte · <b>gratuit 0–12 ans</b> · forfait famille 15 €",
     gratuit: false, pluie: true,
     note: {v: "4,2", c: "~750"},
     lien: "https://www.automates-avenue.fr/",
     tel: "02 31 90 02 43",
-    notes: "<strong>Contrainte forte : la journée Falaise doit tomber un mardi–samedi.</strong> Bonne option jour de pluie. Film d'introduction sous-titré en anglais."
+    notes: "<strong>C'est lui qui contraint la journée Falaise</strong> : le château et le lavoir ouvrent tous les jours, pas le musée. Film d'introduction sous-titré en anglais."
   },
   {
     n: "Vieux Lavoir",
@@ -686,7 +699,7 @@ const DATA = [
     tarif: "Gratuit", gratuit: true, pluie: false,
     note: null,
     lien: "https://www.falaise-suissenormande.com/sites-et-musees/vieux-lavoir/",
-    notes: "Exposition permanente à côté, visites guidées ponctuelles l'été. Le complément idéal de la journée Falaise."
+    notes: "Exposition permanente à côté, visites guidées ponctuelles l'été."
   },
   {
     n: "Manoir de Courboyer — Maison du Parc",
@@ -733,7 +746,7 @@ const DATA = [
     lien: "https://www.montagnesdenormandie.fr/",
     lien2: "https://www.suisse-normande-tourisme.com/",
     tel: "02 31 59 13 13",
-    notes: "<strong>Pédalos à confirmer selon le niveau d'eau de l'Orne en août</strong> — appeler Beau Rivage avant de partir. Chaussures fermées à la Roche d'Oëtre, les sentiers longent le à-pic. Café-restaurant et accrobranche sur place."
+    notes: "<strong>Pédalos à confirmer selon le niveau d'eau de l'Orne en août</strong> — appeler Beau Rivage avant de partir. Chaussures fermées à la Roche d'Oëtre, les sentiers longent l'à-pic. Café-restaurant et accrobranche sur place."
   },
   {
     n: "Fresnay-sur-Sarthe",
@@ -760,7 +773,7 @@ const DATA = [
     gratuit: true, pluie: false,
     note: {v: "4,1", c: "~3 640", quoi: "le casino JOA"},
     lien: "https://bagnolesdelorne.com/",
-    notes: "Quartier Belle Époque, Casino du Lac, parc de l'hôtel de ville (arboretum, plus de 150 essences), belvédère du Roc au Chien. Visites guidées de la ville 2 à 3 fois par semaine de mi-mars à mi-novembre. À combiner avec <strong>Domfront</strong>, à 20 min."
+    notes: "Quartier Belle Époque, Casino du Lac, parc de l'hôtel de ville (arboretum, plus de 150 essences), belvédère du Roc au Chien. Visites guidées de la ville 2 à 3 fois par semaine de mi-mars à mi-novembre."
   },
   {
     n: "Mont des Avaloirs",
@@ -773,7 +786,7 @@ const DATA = [
     tarif: "Gratuit", gratuit: true, pluie: false,
     note: null,
     lien: "https://www.mayenne-tourisme.com/",
-    notes: "108 marches à monter, vue jusqu'à 100 km. Sentier depuis le parking vers « La Pierre au Loup » et la source de la Mayenne. Animaux acceptés. Étape courte — <strong>à coupler avec Bagnoles ou les Alpes mancelles</strong>, c'est sur la même route."
+    notes: "108 marches à monter, vue jusqu'à 100 km. Sentier depuis le parking vers « La Pierre au Loup » et la source de la Mayenne. Animaux acceptés."
   },
   {
     n: "Château de Sassy",
@@ -789,7 +802,7 @@ const DATA = [
     lien: "https://www.chateaudesassy.fr/",
     tel: "07 88 69 20 34",
     fin: "2026-08-30",
-    notes: "<strong>Ferme le 30 août.</strong> Beaucoup de marches — pas adapté à une poussette ni à une mobilité réduite. On y visite la chambre où a dormi Elizabeth II en 1967. Proche de Carrouges et du Haras du Pin."
+    notes: "<strong>Ferme le 30 août.</strong> Beaucoup de marches — pas adapté à une poussette ni à une mobilité réduite. On y visite la chambre où a dormi Elizabeth II en 1967."
   },
   {
     n: "Zoo de La Flèche",
@@ -842,7 +855,7 @@ const GROUPS = [
     id: "falaise",
     titre: "La journée Falaise",
     quand: "Journée · Calvados",
-    tagline: "Trois sites à moins de dix minutes à pied les uns des autres, dans la ville natale de Guillaume.",
+    tagline: "Trois sites dans la même petite ville, la ville natale de Guillaume — tout se fait à pied.",
     contrainte: "Doit tomber un mardi, mercredi, jeudi, vendredi ou samedi — le musée des Automates ferme dimanche et lundi.",
     etapes: [
       {q: "Matin", a: "Château de Guillaume le Conquérant", w: "Ouvert dès 10 h et jusqu'à 19 h en août ; comptez 2 h avec les tablettes Histopad."},
@@ -869,7 +882,7 @@ const GROUPS = [
     id: "chateaux",
     titre: "Trois châteaux de l'Orne",
     quand: "Journée chargée · Orne",
-    tagline: "Carrouges, Sassy et le Haras du Pin se tiennent dans le même mouchoir de poche, autour d'Argentan.",
+    tagline: "Carrouges, Sassy et le Haras du Pin se tiennent dans un mouchoir de poche, entre Alençon et Argentan.",
     contrainte: "Avant le 30 août — Sassy ferme ce jour-là. Carrouges coupe de 12 h 45 à 14 h.",
     etapes: [
       {q: "Matin", a: "Château de Carrouges", w: "Ouvre à 10 h. Gratuit pour les moins de 26 ans, et le parc de 10 ha l'est pour tout le monde."},
@@ -919,12 +932,13 @@ const GROUPS = [
     id: "pluie",
     titre: "S'il pleut",
     quand: "Repli · toute la semaine",
-    tagline: "Les quatre seules sorties de la liste qui tiennent sous la pluie, de la meilleure à la moins bonne.",
+    tagline: "Les sorties de la liste qui tiennent sous la pluie, de la meilleure à la moins bonne.",
     contrainte: null,
     etapes: [
       {q: "Le mieux", a: "Grottes de Saulges", w: "Sous terre, avec le musée de Préhistoire inclus. Réservation conseillée en août."},
       {q: "Sinon", a: "Ouistreham — Le Grand Bunker", w: "Cinq niveaux couverts — mais beaucoup d'escaliers, et la plage tombe à l'eau."},
       {q: "Sinon", a: "Musée des Automates", w: "Entièrement couvert, une heure. Mardi à samedi seulement.", opt: true},
+      {q: "Sinon", a: "Château de Guillaume le Conquérant", w: "La visite se fait surtout à l'intérieur, tablette en main.", opt: true},
       {q: "En dépannage", a: "Château de Carrouges", w: "L'intérieur se visite ; le parc et les douves, beaucoup moins par temps de pluie.", opt: true}
     ],
     budget: "À partir de <b>16 €</b> par adulte à Saulges (musée compris), 3,50 € pour les 5–18 ans"
@@ -955,6 +969,16 @@ function host(u) { return u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "
 
 const slug = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
   .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// « 8 € adulte · 4 € enfant · gratuit −5 ans » : on n'affiche que le premier prix
+function tarifCell(tarif) {
+  const parts = tarif.split(" · ");
+  if (parts.length < 2) return tarif;
+  return `<details class="tarif">
+    <summary>${parts[0]}<span class="more">+${parts.length - 1}</span></summary>
+    <ul>${parts.slice(1).map(p => `<li>${p}</li>`).join("")}</ul>
+  </details>`;
+}
 
 function card(a) {
   const el = document.createElement("article");
@@ -996,12 +1020,12 @@ function card(a) {
     <dl class="detail">
       <dt>Horaires</dt><dd>${a.horaires.length === 1 ? a.horaires[0] : `<ul>${a.horaires.map(h => `<li>${h}</li>`).join("")}</ul>`}</dd>
       <dt>Durée</dt><dd>${a.duree}</dd>
-      <dt>Tarif</dt><dd>${a.tarif}</dd>
+      <dt>Tarif</dt><dd>${tarifCell(a.tarif)}</dd>
       <dt>Adresse</dt><dd>${a.adresse}</dd>
       ${a.note && a.note.quoi ? `<dt>Note</dt><dd>${a.note.v}/5 (${a.note.c} avis) — ${a.note.quoi}</dd>` : ""}
     </dl>
     <div class="card-foot">
-      <p class="note">${a.notes}</p>
+      ${a.notes ? `<p class="note">${a.notes}</p>` : ""}
       <div class="links">${liens.join("")}</div>
     </div>`;
   return el;
@@ -1010,7 +1034,6 @@ function card(a) {
 function matches(a) {
   const f = state.filters;
   if (state.groupe && !(IN_GROUP.get(a.n) || []).some(g => g.id === state.groupe)) return false;
-  if (f.has("gratuit") && !a.gratuit) return false;
   if (f.has("pluie") && !a.pluie) return false;
   if (f.has("court") && a.bucket !== "court") return false;
   if (f.has("journee") && a.bucket !== "journee") return false;
