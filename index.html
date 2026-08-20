@@ -216,6 +216,10 @@
   .badge.paid  { background: var(--accent-soft); color: var(--accent); }
   .badge.rain  { background: var(--surface-2);   color: var(--ink-soft); }
   .badge.star  { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+  .badge.star .val { font-weight: 700; color: var(--ink); }
+  /* au-dessus de 4,5 : la note passe en doré */
+  .badge.star.hi { background: var(--ochre-soft); color: var(--ochre); border-color: transparent; }
+  .badge.star.hi .val { color: var(--ochre); }
 
   /* deadline strip */
   .deadline {
@@ -962,7 +966,10 @@ function card(a) {
   badges.push(`<span class="badge">${a.duree.replace(/ \(.*/, "")}</span>`);
   badges.push(`<span class="badge">${a.km} km d'Aunou</span>`);
   if (a.pluie) badges.push(`<span class="badge rain">Jour de pluie</span>`);
-  if (a.note) badges.push(`<span class="badge star">★ ${a.note.v} · ${a.note.c} avis</span>`);
+  if (a.note) {
+    const v = parseFloat(a.note.v.replace(",", "."));
+    badges.push(`<span class="badge star${v >= 4.5 ? " hi" : ""}">★ <span class="val">${a.note.v}</span> · ${a.note.c} avis</span>`);
+  }
 
   let deadline = "";
   if (a.fin) {
