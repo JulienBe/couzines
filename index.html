@@ -1,0 +1,1379 @@
+<title>Cousinade en Normandie</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    /* grès roussard & bocage — light */
+    --paper:      #E9EDE6;
+    --surface:    #F5F7F2;
+    --surface-2:  #DFE5DA;
+    --line:       #C9D2C3;
+    --ink:        #1D231E;
+    --ink-soft:   #57604F;
+    --ink-faint:  #7C8574;
+    --accent:     #9C3B22;
+    --accent-soft:#F0DCD3;
+    --green:      #3B6B4F;
+    --green-soft: #D8E6D9;
+    --ochre:      #8A6417;
+    --ochre-soft: #F0E4C6;
+    --shadow:     0 1px 0 rgba(29,35,30,.04), 0 8px 24px -18px rgba(29,35,30,.55);
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #141815;
+      --surface:    #1C221D;
+      --surface-2:  #262E27;
+      --line:       #333D34;
+      --ink:        #E3E8DF;
+      --ink-soft:   #A5AF9F;
+      --ink-faint:  #7C876F;
+      --accent:     #D97B5C;
+      --accent-soft:#3A241C;
+      --green:      #86BB94;
+      --green-soft: #1E2E22;
+      --ochre:      #D9AE5E;
+      --ochre-soft: #322815;
+      --shadow:     0 1px 0 rgba(0,0,0,.2), 0 10px 28px -20px #000;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #141815;
+    --surface:    #1C221D;
+    --surface-2:  #262E27;
+    --line:       #333D34;
+    --ink:        #E3E8DF;
+    --ink-soft:   #A5AF9F;
+    --ink-faint:  #7C876F;
+    --accent:     #D97B5C;
+    --accent-soft:#3A241C;
+    --green:      #86BB94;
+    --green-soft: #1E2E22;
+    --ochre:      #D9AE5E;
+    --ochre-soft: #322815;
+    --shadow:     0 1px 0 rgba(0,0,0,.2), 0 10px 28px -20px #000;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px 96px; }
+
+  /* ---------- masthead ---------- */
+  header.masthead {
+    padding: 56px 0 28px;
+    display: grid;
+    gap: 14px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 6.5vw, 4.1rem);
+    line-height: 1.02;
+    letter-spacing: -.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .standfirst {
+    max-width: 62ch;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    margin: 0;
+  }
+  .meta-note {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+    border-left: 2px solid var(--line);
+    padding-left: 12px;
+    max-width: 60ch;
+  }
+
+  /* ---------- toolbar ---------- */
+  .sticky-bar {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in oklab, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    margin: 0 -20px 30px;
+  }
+  .viewtabs {
+    display: flex; gap: 2px; padding: 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .viewtabs button {
+    font: inherit; font-size: 13.5px;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    color: var(--ink-faint); cursor: pointer;
+    padding: 11px 14px; margin-bottom: -1px;
+    transition: color .15s, border-color .15s;
+  }
+  .viewtabs button:hover { color: var(--ink); }
+  .viewtabs button[aria-selected="true"] {
+    color: var(--ink); border-bottom-color: var(--accent); font-weight: 600;
+  }
+  .toolbar {
+    padding: 12px 20px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .search {
+    flex: 1 1 220px; min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    color: var(--ink);
+    font: inherit; font-size: 14px;
+  }
+  .search::placeholder { color: var(--ink-faint); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: 13px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    padding: 6px 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .chip:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .count {
+    font-family: var(--mono); font-size: 12px; color: var(--ink-faint);
+    margin-left: auto; font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+  .grid[hidden] { display: none; }
+
+  article.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .card-head { padding: 18px 20px 14px; display: grid; gap: 10px; }
+  .card h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.42rem;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .place {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline;
+  }
+  .lead { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+  .badge {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    padding: 3px 8px; border-radius: 3px;
+    background: var(--surface-2); color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .badge.free  { background: var(--green-soft);  color: var(--green); }
+  .badge.paid  { background: var(--accent-soft); color: var(--accent); }
+  .badge.rain  { background: var(--surface-2);   color: var(--ink-soft); }
+  .badge.star  { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+
+  /* deadline strip */
+  .deadline {
+    display: flex; gap: 8px; align-items: baseline;
+    background: var(--ochre-soft);
+    color: var(--ochre);
+    font-family: var(--mono); font-size: 11.5px;
+    padding: 8px 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .deadline b { font-weight: 700; }
+
+  dl.detail {
+    margin: 0; padding: 14px 20px 4px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 14px;
+    font-size: .9rem;
+    border-top: 1px solid var(--line);
+  }
+  dl.detail dt {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    padding-top: 3px;
+  }
+  dl.detail dd { margin: 0; color: var(--ink); }
+  dl.detail ul { margin: 4px 0 0; padding-left: 16px; color: var(--ink-soft); }
+  dl.detail li { margin: 1px 0; }
+
+  .card-foot { margin-top: auto; padding: 14px 20px 18px; display: grid; gap: 12px; }
+  .note {
+    font-size: .875rem; color: var(--ink-soft);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
+  }
+  .note strong { color: var(--ink); font-weight: 600; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .85rem; font-family: var(--mono); }
+  .tel { color: var(--ink-faint); }
+
+  .empty {
+    grid-column: 1 / -1;
+    padding: 48px 0; text-align: center; color: var(--ink-faint);
+    font-family: var(--serif); font-style: italic; font-size: 1.1rem;
+  }
+
+  /* ---------- carte ---------- */
+  .mapview { display: grid; gap: 16px; }
+  .mapview[hidden] { display: none; }
+  .map-intro {
+    display: flex; flex-wrap: wrap; gap: 10px 20px;
+    align-items: baseline; justify-content: space-between;
+  }
+  .map-intro p { margin: 0; color: var(--ink-soft); font-size: .92rem; max-width: 58ch; }
+  .map-body { display: grid; gap: 16px; }
+  @media (min-width: 900px) {
+    .map-body { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
+    .map-panel { position: sticky; top: 118px; }
+  }
+  .map-frame {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    padding: 8px;
+    overflow-x: auto;
+  }
+  .map-frame svg { display: block; width: 100%; height: auto; min-width: 300px; }
+
+  .ring { fill: none; stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 5; }
+  .ring-label {
+    fill: var(--ink-faint); font-family: var(--mono); font-size: 11px;
+    letter-spacing: .05em;
+  }
+  .route { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 5; opacity: .75; }
+  .pair-link { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 2 3; }
+  .pin line.leader { stroke: var(--ink-faint); stroke-width: 1; }
+  .pin { cursor: pointer; }
+  .pin circle.dot {
+    fill: var(--surface); stroke: var(--ink-soft); stroke-width: 1.6;
+    transition: fill .15s, stroke .15s;
+  }
+  .pin text {
+    fill: var(--ink); font-family: var(--sans); font-size: 13px;
+    paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round;
+  }
+  .pin text tspan.n {
+    fill: var(--ink-faint); font-family: var(--mono); font-size: 11px;
+  }
+  .pin:hover circle.dot, .pin:focus-visible circle.dot { fill: var(--accent); stroke: var(--accent); }
+  .pin.on circle.dot { fill: var(--accent); stroke: var(--accent); }
+  .pin.off { opacity: .28; }
+  .pin.sel circle.dot { fill: var(--ink); stroke: var(--ink); }
+  .pin:focus { outline: none; }
+  .pin circle.halo { fill: none; stroke: none; }
+  .pin:focus-visible circle.halo { stroke: var(--accent); stroke-width: 2; }
+  .home circle { fill: var(--ink); }
+  .home text { fill: var(--ink); font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase;
+    paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+  .scalebar line, .scalebar path { stroke: var(--ink-faint); stroke-width: 1.2; fill: none; }
+  .scalebar text { fill: var(--ink-faint); font-family: var(--mono); font-size: 11px; }
+  .compass { fill: var(--ink-faint); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
+
+  .map-panel {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+    padding: 16px 20px; display: grid; gap: 10px; min-height: 120px;
+  }
+  .map-panel .where {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .map-panel h3 { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; margin: 0; }
+  .map-panel ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .map-panel li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: .92rem; }
+  .map-panel li button {
+    font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+    color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
+    text-align: left;
+  }
+  .map-panel .hint { color: var(--ink-faint); font-size: .9rem; margin: 0; }
+
+  .card.flash { animation: flash 1.6s ease-out; }
+  @keyframes flash {
+    0%, 60% { box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+    100% { box-shadow: 0 0 0 0 transparent, var(--shadow); }
+  }
+
+  /* ---------- journées groupées ---------- */
+  .itineraires { margin-top: 76px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .section-head { display: grid; gap: 6px; margin-bottom: 26px; max-width: 64ch; }
+  .section-head h2 {
+    font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.2rem);
+    margin: 0; letter-spacing: -.01em;
+  }
+  .section-head p { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 18px; align-items: start;
+  }
+  .group {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .group-head { padding: 18px 20px 14px; display: grid; gap: 8px; }
+  .group h3 {
+    font-family: var(--serif); font-weight: 400; font-size: 1.34rem;
+    line-height: 1.15; margin: 0; text-wrap: balance;
+  }
+  .group .tagline { margin: 0; color: var(--ink-soft); font-size: .92rem; }
+  .when {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .constraint {
+    display: flex; gap: 8px; align-items: baseline;
+    background: var(--accent-soft); color: var(--accent);
+    font-family: var(--mono); font-size: 11.5px; line-height: 1.5;
+    padding: 8px 20px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  ol.steps {
+    list-style: none; margin: 0; padding: 16px 20px;
+    display: grid; gap: 14px;
+    border-top: 1px solid var(--line);
+  }
+  ol.steps > li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; }
+  .steps .moment {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint); padding-top: 3px;
+  }
+  .steps .what { font-size: .95rem; }
+  .steps .what b { font-weight: 600; }
+  .steps .what.optional b { font-weight: 400; color: var(--ink-soft); }
+  .steps .why { color: var(--ink-soft); font-size: .84rem; }
+
+  .group-foot {
+    margin-top: auto; padding: 14px 20px 18px;
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+  }
+  .budget { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .budget b { color: var(--ink); font-weight: 700; }
+  .see {
+    font: inherit; font-size: 12.5px; font-family: var(--mono);
+    background: transparent; border: 1px solid var(--line); color: var(--ink-soft);
+    border-radius: 999px; padding: 5px 13px; cursor: pointer; white-space: nowrap;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .see:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .arbitrage {
+    margin-top: 22px; padding: 16px 20px;
+    border: 1px dashed var(--line); border-radius: 4px;
+    display: grid; gap: 6px; font-size: .9rem; color: var(--ink-soft);
+  }
+  .arbitrage h4 {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0; font-weight: 400;
+  }
+  .arbitrage strong { color: var(--ink); font-weight: 600; }
+
+  .filter-banner {
+    grid-column: 1 / -1;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px;
+    padding: 10px 16px; font-family: var(--mono); font-size: 12px; color: var(--ink-soft);
+  }
+  .filter-banner b { color: var(--ink); }
+  .filter-banner button {
+    font: inherit; background: none; border: 0; color: var(--accent);
+    cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .card .in-group { color: var(--accent); }
+
+  /* ---------- programme ---------- */
+  .programme { margin-top: 72px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .programme h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 2rem; margin: 0 0 6px;
+  }
+  .programme p.sub { margin: 0 0 24px; color: var(--ink-soft); font-size: .95rem; }
+  .day { display: grid; gap: 12px; max-width: 640px; }
+  .day h3 {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0;
+  }
+  .slot {
+    display: grid; grid-template-columns: 64px 1fr; gap: 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .slot time {
+    font-family: var(--mono); font-size: .95rem; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .slot .what { font-family: var(--serif); font-size: 1.1rem; }
+  .slot .why { color: var(--ink-soft); font-size: .85rem; }
+
+  footer.colophon {
+    margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+    display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between;
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px 72px; }
+    .toolbar { margin: 0 -16px 24px; padding: 10px 16px; }
+    dl.detail { grid-template-columns: 1fr; gap: 2px 0; }
+    dl.detail dt { padding-top: 10px; }
+    .slot { grid-template-columns: 52px 1fr; gap: 12px; }
+    ol.steps > li { grid-template-columns: 1fr; gap: 2px; }
+    .steps .moment { padding-top: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Orne · Calvados · Sarthe · Mayenne — été 2026</div>
+    <h1>Qu'est-ce qu'on fait,<br><em>les cousines&nbsp;?</em></h1>
+    <p class="standfirst">Dix-neuf sorties repérées autour d'Aunou : villages de grès roussard, châteaux à douves, un point culminant à 417&nbsp;m, deux zoos qui font doublon et une grotte pour les jours de pluie. Filtrez, comparez, choisissez.</p>
+    <p class="meta-note">Infos vérifiées le 20 août 2026 sur les sites officiels et les offices de tourisme.<br>Notes Google via Wanderlog — arrondies, le nombre d'avis bouge.</p>
+  </header>
+
+  <div class="sticky-bar">
+    <div class="viewtabs" role="tablist" aria-label="Affichage">
+      <button role="tab" id="tab-liste" aria-selected="true" aria-controls="grid" data-v="liste">Les fiches</button>
+      <button role="tab" id="tab-carte" aria-selected="false" aria-controls="mapview" data-v="carte">La carte</button>
+    </div>
+    <nav class="toolbar" aria-label="Filtres">
+      <input class="search" id="q" type="search" placeholder="Chercher un lieu, une commune, un détail…" aria-label="Chercher">
+      <div class="chips" id="chips">
+        <button class="chip" data-f="gratuit" aria-pressed="false">Gratuit</button>
+        <button class="chip" data-f="pluie" aria-pressed="false">Jour de pluie</button>
+        <button class="chip" data-f="court" aria-pressed="false">≤ 1 h 30</button>
+        <button class="chip" data-f="journee" aria-pressed="false">Journée entière</button>
+        <button class="chip" data-f="urgent" aria-pressed="false">Ferme bientôt</button>
+      </div>
+      <span class="count" id="count"></span>
+    </nav>
+  </div>
+
+  <main class="grid" id="grid" role="tabpanel" aria-labelledby="tab-liste"></main>
+
+  <section class="mapview" id="mapview" role="tabpanel" aria-labelledby="tab-carte" hidden>
+    <div class="map-intro">
+      <p>Distances à vol d'oiseau depuis Aunou-sur-Orne. Les cercles sont espacés de 25 km. Un point = une commune ; les trois sites de Falaise et les deux de Saint-Céneri sont sur le même point.</p>
+      <div class="chips" id="mapchips"></div>
+    </div>
+    <div class="map-body">
+      <div class="map-frame" id="mapframe"></div>
+      <div class="map-panel" id="mappanel"></div>
+    </div>
+  </section>
+
+  <section class="itineraires">
+    <div class="section-head">
+      <h2>Des journées toutes faites</h2>
+      <p>Six journées qui tiennent debout géographiquement — les sorties du secteur sont trop dispersées pour être piochées au hasard — et un plan de repli pour les jours de pluie. Le bouton en bas de chaque journée ne garde que ses fiches dans la liste ci-dessus.</p>
+    </div>
+    <div class="groups" id="groups"></div>
+    <div class="arbitrage">
+      <h4>Deux arbitrages à trancher</h4>
+      <p style="margin:0"><strong>Les zoos font doublon</strong> : Spaycific'Zoo (Spay) et le Zoo de La Flèche sont dans le même département, à 40 min l'un de l'autre. La Flèche est nettement plus grand — mais aussi deux fois plus cher et sur la journée entière.</p>
+      <p style="margin:0"><strong>Le Manoir de Courboyer ne rentre dans aucune journée</strong> : le Perche est à l'opposé du reste de la liste. Et ses visites guidées s'arrêtent le 21 août — passé cette date, ça devient une balade gratuite dans le domaine, pas une visite.</p>
+    </div>
+  </section>
+
+  <section class="programme">
+    <h2>Le programme</h2>
+    <p class="sub">Ce qui est déjà calé.</p>
+    <div class="day">
+      <h3>Dimanche 23 août 2026</h3>
+      <div class="slot">
+        <time datetime="14:00">14 h</time>
+        <div>
+          <div class="what">Visite complète du Haras du Pin</div>
+          <div class="why">Un dimanche : le spectacle du « Jeudi du Pin » ne tombe pas ce jour-là — à vérifier auprès du haras.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Cousinade 2026 · base de départ : Aunou</span>
+    <span id="today"></span>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    n: "Jardins de la Mansonnière",
+    lat: 48.3797, lon: -0.0526, km: 33, court: "Saint-Céneri",
+    ville: "Saint-Céneri-le-Gérei (61)",
+    lead: "Jardin remarquable privé de Michèle et Philippe Manson, à deux pas du village.",
+    adresse: "Les Jardins de la Mansonière, 61250 Saint-Céneri-le-Gérei",
+    horaires: ["Du 1<sup>er</sup> juin au 31 août 2026 : tous les jours <b>sauf lundi, mardi et mercredi</b>, 14 h 30 – 18 h 30 (dernière entrée 18 h)", "Du 1<sup>er</sup> au 13 septembre : samedi et dimanche uniquement"],
+    duree: "~1 h 30", bucket: "court",
+    tarif: "8 € adulte · 4 € enfant (3–12 ans)",
+    gratuit: false, pluie: false,
+    note: null,
+    lien: "https://mansoniere.fr/",
+    fin: "2026-08-31",
+    notes: "Ferme le 31 août — <strong>à caler tôt</strong>. À enchaîner avec le village de Saint-Céneri, c'est le même endroit."
+  },
+  {
+    n: "Village de Saint-Céneri-le-Gérei",
+    lat: 48.3797, lon: -0.0526, km: 33, court: "Saint-Céneri",
+    ville: "Saint-Céneri-le-Gérei (61)",
+    lead: "Un des « Plus Beaux Villages de France » : maisons en grès roussard au-dessus de la Sarthe, au cœur des Alpes mancelles.",
+    adresse: "61250 Saint-Céneri-le-Gérei",
+    horaires: ["Accès libre, toute la journée"],
+    duree: "~1 h 30 – 2 h", bucket: "court",
+    tarif: "Gratuit", gratuit: true, pluie: false,
+    note: {v: "4,6", c: "~60", quoi: "chapelle du Petit-Saint-Céneri"},
+    lien: "https://www.les-plus-beaux-villages-de-france.org/fr/nos-villages/saint-ceneri-le-gerei/",
+    notes: "Église romane du XI<sup>e</sup> avec fresques, chapelle du XV<sup>e</sup> et source miraculeuse sur l'autre rive. Village des peintres — Corot, Courbet y ont posé leur chevalet."
+  },
+  {
+    n: "Château de Carrouges",
+    lat: 48.567, lon: -0.1449, km: 28, court: "Carrouges",
+    ville: "Carrouges (61)",
+    lead: "Château-monument national du XIV<sup>e</sup>, brique et douves, avec un parc de 10 ha.",
+    adresse: "3 Le Château, 61320 Carrouges",
+    horaires: ["Mai à août : 10 h – 12 h 45 et 14 h – 18 h", "Parc : 10 h – 18 h"],
+    duree: "~2 h (château + parc)", bucket: "moyen",
+    tarif: "7 € · <b>gratuit pour les moins de 26 ans</b> · parc, douves et cour intérieure gratuits",
+    gratuit: false, pluie: true,
+    note: {v: "4,6", c: "~1 440"},
+    lien: "https://www.chateau-carrouges.fr/",
+    notes: "Parking gratuit. La gratuité −26 ans peut changer le budget du tout au tout : <strong>vérifier l'âge de chacune</strong>. Avec Sassy et le Haras du Pin, ça fait une belle journée « châteaux »."
+  },
+  {
+    n: "Spaycific'Zoo",
+    lat: 47.9241, lon: 0.1511, km: 77, court: "Spay",
+    ville: "Spay (72)",
+    lead: "Petit zoo familial de 6 ha, 600 animaux, côté Sarthe.",
+    adresse: "542 route de la Martinière, 72700 Spay",
+    horaires: ["Vacances scolaires : tous les jours 10 h – 18 h/19 h", "Hors vacances : mercredis, week-ends et jours fériés seulement"],
+    duree: "~2 – 3 h", bucket: "moyen",
+    tarif: "15 € (16 ans et +) · 13 € (13–16) · 11 € (3–12) · gratuit −3 ans",
+    gratuit: false, pluie: false,
+    note: {v: "4,5", c: "~2 300"},
+    lien: "https://www.spaycificzoo.com/",
+    notes: "<strong>Doublon avec le Zoo de La Flèche</strong> — même département, 40 min d'écart. N'en garder qu'un."
+  },
+  {
+    n: "Domfront",
+    lat: 48.5865, lon: -0.6226, km: 63, court: "Domfront",
+    ville: "Domfront-en-Poiraie (61)",
+    lead: "Cité médiévale perchée : ruines d'un donjon de 25 m, remparts et vieille ville.",
+    adresse: "61700 Domfront-en-Poiraie",
+    horaires: ["Vestiges du château : accès libre toute l'année", "Visites guidées juillet–août : château <b>mardi et vendredi 14 h 30</b>, cité médiévale <b>mardi et vendredi 15 h 30</b>"],
+    duree: "Demi-journée", bucket: "moyen",
+    tarif: "Gratuit en libre · 4 €/personne par visite guidée",
+    gratuit: true, pluie: false,
+    note: {v: "4,5", c: "~1 165", quoi: "le château"},
+    lien: "https://www.ornetourisme.com/visites-loisirs/cite-medievale-de-domfront/",
+    tel: "02 33 38 53 97",
+    notes: "Route longue depuis Aunou : à combiner avec <strong>Bagnoles-de-l'Orne</strong>, à 20 min."
+  },
+  {
+    n: "Ouistreham — Le Grand Bunker",
+    lat: 49.2761, lon: -0.2585, km: 82, court: "Ouistreham",
+    ville: "Ouistreham (14)",
+    lead: "La plage de Riva-Bella et le musée du Mur de l'Atlantique, dans un vrai bunker allemand sur cinq niveaux.",
+    adresse: "6 av. du 6 Juin, 14150 Ouistreham",
+    horaires: ["Tous les jours 9 h – 18 h (fermé les 25/12 et 01/01)"],
+    duree: "Journée complète (musée ~1 h + plage)", bucket: "journee",
+    tarif: "7,50 € adulte · 5,50 € enfant",
+    gratuit: false, pluie: true,
+    note: {v: "4,5", c: "~7 100"},
+    lien: "https://www.museegrandbunker.com/",
+    notes: "Beaucoup d'escaliers. La péniche de débarquement du <em>Soldat Ryan</em> est visible gratuitement devant. <strong>Seule sortie « mer » de la liste.</strong>"
+  },
+  {
+    n: "Château de Guillaume le Conquérant",
+    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    ville: "Falaise (14)",
+    lead: "Château fort du XI<sup>e</sup> avec tablettes Histopad en réalité augmentée, dans la ville natale de Guillaume.",
+    adresse: "Place Guillaume le Conquérant, 14700 Falaise",
+    horaires: ["Juillet–août : tous les jours 10 h – <b>19 h</b>", "Reste de l'année : 10 h – 18 h"],
+    duree: "~2 h", bucket: "moyen",
+    tarif: "9,50 € adulte · 7,50 € réduit · 5 € (−17 ans) · <b>forfait famille 24 €</b> (2 adultes + 4 enfants max) · gratuit −6 ans",
+    gratuit: false, pluie: true,
+    note: {v: "4,5", c: "~5 300"},
+    lien: "https://www.chateau-guillaume-leconquerant.fr/",
+    tel: "02 31 41 61 44",
+    notes: "Parking gratuit. Trois activités à Falaise → <strong>journée groupée</strong>."
+  },
+  {
+    n: "Musée des Automates",
+    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    ville: "Falaise (14)",
+    lead: "Collection d'automates de vitrines de grands magasins, entièrement couvert.",
+    adresse: "Boulevard de la Libération, 14700 Falaise",
+    horaires: ["<b>Du mardi au samedi — fermé dimanche, lundi et jours fériés.</b> Dernière entrée 1 h avant fermeture.", "Mardi : 10 h – 12 h et 14 h – 18 h", "Mercredi : 10 h – 12 h 30 et 13 h 30 – 18 h", "Jeudi : 14 h – 19 h", "Vendredi : 14 h – 18 h", "Samedi : 9 h 30 – 13 h et 14 h – 17 h"],
+    duree: "~1 h", bucket: "court",
+    tarif: "5 € adulte · <b>gratuit 0–12 ans</b> · forfait famille 15 €",
+    gratuit: false, pluie: true,
+    note: {v: "4,2", c: "~750"},
+    lien: "https://www.automates-avenue.fr/",
+    tel: "02 31 90 02 43",
+    notes: "<strong>Contrainte forte : la journée Falaise doit tomber un mardi–samedi.</strong> Bonne option jour de pluie. Film d'introduction sous-titré en anglais."
+  },
+  {
+    n: "Vieux Lavoir",
+    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    ville: "Falaise (14)",
+    lead: "Lavoir du XIX<sup>e</sup> restauré au pied du château, dans le quartier du Val d'Ante.",
+    adresse: "Quartier du Val d'Ante, 14700 Falaise",
+    horaires: ["Tous les jours, 9 h – 18 h"],
+    duree: "~30 min", bucket: "court",
+    tarif: "Gratuit", gratuit: true, pluie: false,
+    note: null,
+    lien: "https://www.falaise-suissenormande.com/sites-et-musees/vieux-lavoir/",
+    notes: "Exposition permanente à côté, visites guidées ponctuelles l'été. Le complément idéal de la journée Falaise."
+  },
+  {
+    n: "Manoir de Courboyer — Maison du Parc",
+    lat: 48.3967, lon: 0.6701, km: 40, court: "Courboyer",
+    ville: "Perche-en-Nocé (61)",
+    lead: "Manoir du XV<sup>e</sup> et maison du Parc naturel régional du Perche, avec un domaine sillonné de sentiers.",
+    adresse: "61340 Perche-en-Nocé (ex-Nocé)",
+    horaires: ["Domaine et sentiers : accès libre toute l'année", "Visites guidées du manoir : <b>jeudis et vendredis du 9 juillet au 21 août</b> — 14 h (architecture), 15 h (charpente), 16 h (cave à calvados)"],
+    duree: "~2 h (manoir + boucle de promenade)", bucket: "moyen",
+    tarif: "Domaine gratuit · visite guidée 6 € (16 ans et +) · 4 € (5–15 ans) · gratuit −5 ans",
+    gratuit: true, pluie: false,
+    note: null,
+    lien: "https://www.parc-naturel-perche.fr/",
+    tel: "02 33 25 70 10",
+    fin: "2026-08-21", finQuoi: "Dernières visites guidées",
+    notes: "<strong>Les visites guidées s'arrêtent le 21 août.</strong> Après cette date, seul le domaine reste accessible — ce qui reste une belle balade gratuite."
+  },
+  {
+    n: "Haras du Pin",
+    lat: 48.7449, lon: 0.1419, km: 16, court: "Le Pin-au-Haras",
+    ville: "Le Pin-au-Haras (61)",
+    lead: "Le « Versailles du cheval » : haras national avec cour d'honneur, écuries et spectacles équestres.",
+    adresse: "61310 Le Pin-au-Haras",
+    horaires: ["Du 1<sup>er</sup> avril au 30 septembre : 10 h – 18 h", "« Jeudi du Pin » (spectacle) tous les jeudis jusqu'au 10 septembre, <b>à 16 h en août</b>"],
+    duree: "~2 h 30 guidé · +1 h avec le spectacle", bucket: "moyen",
+    tarif: "Visite libre 9 € / 6 € enfant · <b>visite guidée 12 € / 11 € réduit / 9 € enfant</b> · spectacle seul 14 € / 12 € (12 ans +) / 10 € (5–11 ans) · <b>combiné visite + spectacle 22 € / 19 € / 15 €</b>",
+    gratuit: false, pluie: false,
+    note: {v: "4,5", c: "~1 550"},
+    lien: "https://www.haras-national-du-pin.com/",
+    notes: "<strong>Déjà au programme le dimanche 23 août.</strong> Ce jour-là, pas de spectacle du jeudi — à vérifier s'il y a une séance d'été le dimanche."
+  },
+  {
+    n: "Roche d'Oëtre & Clécy",
+    lat: 48.8283, lon: -0.3814, km: 51, court: "Roche d'Oëtre",
+    lat2: 48.9162, lon2: -0.4822, court2: "Clécy",
+    ville: "Suisse normande (61 / 14)",
+    lead: "Le plus beau panorama de Normandie — 118 m au-dessus des gorges de la Rouvre — puis Clécy et ses pédalos sur l'Orne.",
+    adresse: "Roche d'Oëtre, 61430 Saint-Philbert-sur-Orne · Beau Rivage, La Cambronnerie, 14570 Clécy",
+    horaires: ["Roche d'Oëtre, du 1<sup>er</sup> juillet au 31 août : tous les jours 10 h – 19 h (le site naturel reste en accès libre en permanence, ces horaires sont ceux de la maison de site)", "Beau Rivage : ouvert en saison"],
+    duree: "Journée complète (~20 min au belvédère, 1 à 3 h de sentiers, puis l'après-midi à Clécy)", bucket: "journee",
+    tarif: "Roche d'Oëtre et parking gratuits · pédalos, barques et bateaux électriques à Clécy : tarifs sur place",
+    gratuit: true, pluie: false,
+    note: {v: "4,6", c: "~2 400", quoi: "Roche d'Oëtre"},
+    lien: "https://www.montagnesdenormandie.fr/",
+    lien2: "https://www.suisse-normande-tourisme.com/",
+    tel: "02 31 59 13 13",
+    notes: "<strong>Pédalos à confirmer selon le niveau d'eau de l'Orne en août</strong> — appeler Beau Rivage avant de partir. Chaussures fermées à la Roche d'Oëtre, les sentiers longent le à-pic. Café-restaurant et accrobranche sur place."
+  },
+  {
+    n: "Fresnay-sur-Sarthe",
+    lat: 48.2808, lon: 0.0223, km: 40, court: "Fresnay",
+    ville: "Fresnay-sur-Sarthe (72)",
+    lead: "Petite cité de caractère sur éperon rocheux, nettement moins courue que Saint-Céneri.",
+    adresse: "72130 Fresnay-sur-Sarthe",
+    horaires: ["Accès libre", "<b>Visites guidées gratuites pour les individuels, le jeudi après-midi en juillet–août</b> (organisées par la mairie)"],
+    duree: "~1 h 30", bucket: "court",
+    tarif: "Gratuit", gratuit: true, pluie: false,
+    note: null,
+    lien: "https://www.tourisme-alpesmancelles.com/",
+    notes: "Ruines du château avec poterne à deux tours, église romane Notre-Dame (porte sculptée du XVI<sup>e</sup>), halles de 1460, musée des Coiffes. <strong>Très proche d'Aunou</strong> — le bon plan pour une demi-journée improvisée."
+  },
+  {
+    n: "Bagnoles-de-l'Orne",
+    lat: 48.5698, lon: -0.4212, km: 48, court: "Bagnoles",
+    ville: "Bagnoles-de-l'Orne-Normandie (61)",
+    lead: "Station thermale Belle Époque : lac, villas extravagantes et forêt des Andaines.",
+    adresse: "61140 Bagnoles-de-l'Orne-Normandie",
+    horaires: ["Ville et lac : accès libre", "Office de tourisme : lundi–mercredi et vendredi–samedi 10 h – 12 h 30 et 14 h – 17 h, <b>fermé jeudi et dimanche</b>"],
+    duree: "Journée ou demi-journée", bucket: "journee",
+    tarif: "Gratuit · pédalos, mini-golf et accrobranche (Tepacap) payants sur place",
+    gratuit: true, pluie: false,
+    note: {v: "4,1", c: "~3 640", quoi: "le casino JOA"},
+    lien: "https://bagnolesdelorne.com/",
+    notes: "Quartier Belle Époque, Casino du Lac, parc de l'hôtel de ville (arboretum, plus de 150 essences), belvédère du Roc au Chien. Visites guidées de la ville 2 à 3 fois par semaine de mi-mars à mi-novembre. À combiner avec <strong>Domfront</strong>, à 20 min."
+  },
+  {
+    n: "Mont des Avaloirs",
+    lat: 48.4528, lon: -0.1989, km: 36, court: "Mont des Avaloirs",
+    ville: "Pré-en-Pail-Saint-Samson (53)",
+    lead: "Point culminant du Grand Ouest, 417 m, avec un belvédère panoramique à 360°.",
+    adresse: "53370 Pré-en-Pail-Saint-Samson (Mayenne)",
+    horaires: ["Accès libre en permanence"],
+    duree: "~1 h (plus si randonnée)", bucket: "court",
+    tarif: "Gratuit", gratuit: true, pluie: false,
+    note: null,
+    lien: "https://www.mayenne-tourisme.com/",
+    notes: "108 marches à monter, vue jusqu'à 100 km. Sentier depuis le parking vers « La Pierre au Loup » et la source de la Mayenne. Animaux acceptés. Étape courte — <strong>à coupler avec Bagnoles ou les Alpes mancelles</strong>, c'est sur la même route."
+  },
+  {
+    n: "Château de Sassy",
+    lat: 48.6656, lon: 0.0075, km: 17, court: "Sassy",
+    ville: "Boischampré (61)",
+    lead: "Château du XVIII<sup>e</sup> et jardins en terrasses à la française — visite guidée uniquement.",
+    adresse: "28 route de Sassy, Saint-Christophe-le-Jajolet, 61570 Boischampré",
+    horaires: ["<b>Du 11 juillet au 30 août 2026</b> : tous les jours, visites guidées de 11 h à 17 h en continu"],
+    duree: "~1 h 30", bucket: "court",
+    tarif: "8 € adulte · 4 € enfant",
+    gratuit: false, pluie: false,
+    note: {v: "4,4", c: "~300"},
+    lien: "https://www.chateaudesassy.fr/",
+    tel: "07 88 69 20 34",
+    fin: "2026-08-30",
+    notes: "<strong>Ferme le 30 août.</strong> Beaucoup de marches — pas adapté à une poussette ni à une mobilité réduite. On y visite la chambre où a dormi Elizabeth II en 1967. Proche de Carrouges et du Haras du Pin."
+  },
+  {
+    n: "Zoo de La Flèche",
+    lat: 47.6968, lon: -0.0746, km: 104, court: "La Flèche",
+    ville: "La Flèche (72)",
+    lead: "14 ha, 1 500 animaux, environ 150 espèces — le meilleur parc animalier du secteur.",
+    adresse: "72200 La Flèche",
+    horaires: ["<b>Du 4 juillet au 30 août : tous les jours 9 h 30 – 19 h</b>", "Ensuite 9 h 30 – 18 h/18 h 30"],
+    duree: "Journée complète", bucket: "journee",
+    tarif: "Billet daté 26 € adulte (12 ans et +) / 21 € enfant (3–11) · non daté 28,50 € / 23 € · gratuit −3 ans",
+    gratuit: false, pluie: false,
+    note: {v: "4,4", c: "~25 400"},
+    lien: "https://www.zoo-la-fleche.com/",
+    fin: "2026-08-30", finQuoi: "Fin des horaires d'été",
+    notes: "<strong>Billets à prendre en ligne en amont</strong> : moins cher, et ça évite la file d'août. Ours grizzlys, spectacle d'otaries, vol libre de rapaces. Remplace Animal Park Écouves, supprimé de la liste."
+  },
+  {
+    n: "Le Mans — Cité Plantagenêt",
+    lat: 48.0074, lon: 0.1968, km: 67, court: "Le Mans",
+    ville: "Le Mans (72)",
+    lead: "9 ha de ville médiévale dans l'enceinte romaine du III<sup>e</sup> siècle, dominés par la cathédrale Saint-Julien.",
+    adresse: "2 place Saint-Michel, 72000 Le Mans",
+    horaires: ["Cité : accès libre", "Cathédrale : lundi–samedi 9 h – 19 h, dimanche 9 h – 18 h"],
+    duree: "Demi-journée", bucket: "moyen",
+    tarif: "Gratuit · spectacle nocturne 8 – 12 €",
+    gratuit: true, pluie: false,
+    note: {v: "4,7", c: "~3 850", quoi: "la cathédrale, n° 2 des attractions du Mans"},
+    lien: "https://www.lemans-tourisme.com/",
+    tel: "02 43 28 12 87",
+    notes: "Sans le musée des 24 Heures. Se garer hors les murs. Chapelle de la Vierge du XIII<sup>e</sup> (Bérengère, veuve de Richard Cœur de Lion), vitraux, arcs-boutants de l'abside — <strong>visiter de jour pour les vitraux</strong>. Bonus : « Les Nouveaux Mystères de la Cathédrale », spectacle déambulatoire, vendredis et samedis à 21 h 15 jusqu'au 5 septembre 2026."
+  },
+  {
+    n: "Grottes de Saulges",
+    lat: 48.0009, lon: -0.3584, km: 81, court: "Saulges",
+    ville: "Thorigné-en-Charnie (53)",
+    lead: "Grottes préhistoriques dans le canyon de l'Erve, avec un musée de Préhistoire.",
+    adresse: "53270 Thorigné-en-Charnie / Saulges (Mayenne)",
+    horaires: ["<b>Juillet–août : tous les jours 10 h – 18 h</b>", "Grottes ouvertes jusqu'au 14 novembre"],
+    duree: "Demi-journée", bucket: "moyen",
+    tarif: "2 grottes + musée à partir de 16 € adulte / 3,50 € réduit et enfant (5–18 ans) · musée seul 5 € / 3,50 € (inclus dans le billet grottes)",
+    gratuit: false, pluie: true,
+    note: null,
+    lien: "https://www.grottesmuseesaulges.fr/",
+    notes: "<strong>La meilleure option jour de pluie de la liste.</strong> Visite guidée, réservation conseillée en août."
+  }
+];
+
+const GROUPS = [
+  {
+    id: "falaise",
+    titre: "La journée Falaise",
+    quand: "Journée · Calvados",
+    tagline: "Trois sites à moins de dix minutes à pied les uns des autres, dans la ville natale de Guillaume.",
+    contrainte: "Doit tomber un mardi, mercredi, jeudi, vendredi ou samedi — le musée des Automates ferme dimanche et lundi.",
+    etapes: [
+      {q: "Matin", a: "Château de Guillaume le Conquérant", w: "Ouvert dès 10 h et jusqu'à 19 h en août ; comptez 2 h avec les tablettes Histopad."},
+      {q: "Déjeuner", a: null, w: "En ville, entre le château et le boulevard de la Libération."},
+      {q: "Après-midi", a: "Musée des Automates", w: "Une heure au frais et entièrement couvert. Attention aux coupures du midi : ni mardi ni samedi entre 12 h et 14 h."},
+      {q: "Fin de journée", a: "Vieux Lavoir", w: "Trente minutes au pied du château, ouvert jusqu'à 18 h. Gratuit."}
+    ],
+    budget: "14,50 € par adulte — ou <b>39 €</b> la famille en cumulant les deux forfaits (24 € + 15 €)"
+  },
+  {
+    id: "mancelles",
+    titre: "Les Alpes mancelles",
+    quand: "Journée · Orne & Sarthe",
+    tagline: "Le plus beau village de la liste, son jardin remarquable, et une cité de caractère en prime.",
+    contrainte: "Jeudi à dimanche uniquement (la Mansonnière ferme lundi, mardi et mercredi) — et avant le 31 août.",
+    etapes: [
+      {q: "Matin", a: "Village de Saint-Céneri-le-Gérei", w: "L'église romane, la chapelle et la source, de l'autre côté de la Sarthe. Gratuit."},
+      {q: "14 h 30", a: "Jardins de la Mansonnière", w: "L'ouverture est à 14 h 30 pile : c'est elle qui cale la journée. Dernière entrée à 18 h."},
+      {q: "En option", a: "Fresnay-sur-Sarthe", w: "À côté, et le plus près d'Aunou de toute la liste. Visite guidée gratuite le jeudi après-midi en août.", opt: true}
+    ],
+    budget: "<b>8 €</b> par adulte, 4 € par enfant — tout le reste est gratuit"
+  },
+  {
+    id: "chateaux",
+    titre: "Trois châteaux de l'Orne",
+    quand: "Journée chargée · Orne",
+    tagline: "Carrouges, Sassy et le Haras du Pin se tiennent dans le même mouchoir de poche, autour d'Argentan.",
+    contrainte: "Avant le 30 août — Sassy ferme ce jour-là. Carrouges coupe de 12 h 45 à 14 h.",
+    etapes: [
+      {q: "Matin", a: "Château de Carrouges", w: "Ouvre à 10 h. Gratuit pour les moins de 26 ans, et le parc de 10 ha l'est pour tout le monde."},
+      {q: "Après-midi", a: "Château de Sassy", w: "Visites guidées en continu de 11 h à 17 h. Beaucoup de marches."},
+      {q: "En option", a: "Haras du Pin", w: "Déjà calé pour le dimanche 23. Si vous y allez un jeudi, le spectacle est à 16 h.", opt: true}
+    ],
+    budget: "27 € par adulte pour les trois — <b>20 €</b> si vous avez moins de 26 ans (Carrouges gratuit)"
+  },
+  {
+    id: "bocage",
+    titre: "Domfront & Bagnoles",
+    quand: "Journée · ouest de l'Orne",
+    tagline: "Une cité médiévale perchée et une station thermale Belle Époque, à vingt minutes l'une de l'autre.",
+    contrainte: "Un mardi ou un vendredi pour attraper les visites guidées de Domfront (14 h 30 et 15 h 30). Éviter le jeudi et le dimanche : l'office de tourisme de Bagnoles est fermé.",
+    etapes: [
+      {q: "Matin", a: "Domfront", w: "Les vestiges du donjon et la vieille ville. Libre, ou 4 € la visite guidée."},
+      {q: "Après-midi", a: "Bagnoles-de-l'Orne", w: "Le lac et ses pédalos, le quartier Belle Époque, l'arboretum du parc de l'hôtel de ville."},
+      {q: "Sur la route", a: "Mont des Avaloirs", w: "108 marches et une vue à 100 km, pour une heure. C'est sur le trajet depuis Aunou.", opt: true}
+    ],
+    budget: "Gratuit — <b>4 €</b> par personne si vous prenez la visite guidée de Domfront"
+  },
+  {
+    id: "suisse",
+    titre: "La Suisse normande",
+    quand: "Journée complète · Orne & Calvados",
+    tagline: "Le meilleur panorama de la région le matin, l'Orne en pédalo l'après-midi.",
+    contrainte: "Appeler Beau Rivage avant de partir : les pédalos dépendent du niveau d'eau de l'Orne en août.",
+    etapes: [
+      {q: "Matin", a: "Roche d'Oëtre & Clécy", w: "Vingt minutes au belvédère, puis une à trois heures de sentiers au-dessus des gorges de la Rouvre. Chaussures fermées."},
+      {q: "Après-midi", a: null, w: "Descente sur Clécy : pédalos, barques ou bateaux électriques à Beau Rivage. Accrobranche et café-restaurant sur place."}
+    ],
+    budget: "Site et parking <b>gratuits</b> — seules les locations à Clécy sont payantes"
+  },
+  {
+    id: "lemans",
+    titre: "Le Mans, jusqu'au soir",
+    quand: "Demi-journée + soirée · Sarthe",
+    tagline: "La cité Plantagenêt de jour pour les vitraux, et le spectacle déambulatoire de la cathédrale à la nuit tombée.",
+    contrainte: "Vendredi ou samedi pour le spectacle de 21 h 15, jusqu'au 5 septembre.",
+    etapes: [
+      {q: "Après-midi", a: "Le Mans — Cité Plantagenêt", w: "Neuf hectares de ville médiévale dans l'enceinte romaine. Se garer hors les murs."},
+      {q: "21 h 15", a: null, w: "« Les Nouveaux Mystères de la Cathédrale », spectacle déambulatoire, 8 à 12 €."}
+    ],
+    budget: "Gratuit de jour — <b>8 à 12 €</b> pour le spectacle du soir"
+  },
+  {
+    id: "pluie",
+    titre: "S'il pleut",
+    quand: "Repli · toute la semaine",
+    tagline: "Les quatre seules sorties de la liste qui tiennent sous la pluie, de la meilleure à la moins bonne.",
+    contrainte: null,
+    etapes: [
+      {q: "Le mieux", a: "Grottes de Saulges", w: "Sous terre, avec le musée de Préhistoire inclus. Réservation conseillée en août."},
+      {q: "Sinon", a: "Ouistreham — Le Grand Bunker", w: "Cinq niveaux couverts — mais beaucoup d'escaliers, et la plage tombe à l'eau."},
+      {q: "Sinon", a: "Musée des Automates", w: "Entièrement couvert, une heure. Mardi à samedi seulement.", opt: true},
+      {q: "En dépannage", a: "Château de Carrouges", w: "L'intérieur se visite ; le parc et les douves, beaucoup moins par temps de pluie.", opt: true}
+    ],
+    budget: "À partir de <b>16 €</b> par adulte à Saulges (musée compris), 3,50 € pour les 5–18 ans"
+  }
+];
+
+const TODAY = new Date();
+const grid = document.getElementById("grid");
+const state = { q: "", filters: new Set(), groupe: null };
+
+// index inverse : nom d'activité -> journées qui la contiennent
+const IN_GROUP = new Map();
+for (const g of GROUPS) {
+  for (const e of g.etapes) {
+    if (!e.a) continue;
+    if (!IN_GROUP.has(e.a)) IN_GROUP.set(e.a, []);
+    IN_GROUP.get(e.a).push(g);
+  }
+}
+
+function daysLeft(iso) {
+  const fin = new Date(iso + "T00:00:00");
+  const jour = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
+  return Math.round((fin - jour) / 86400000);
+}
+
+function host(u) { return u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""); }
+
+const slug = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+function card(a) {
+  const el = document.createElement("article");
+  el.className = "card";
+  el.id = "fiche-" + slug(a.n);
+
+  const badges = [];
+  badges.push(`<span class="badge ${a.gratuit ? "free" : "paid"}">${a.gratuit ? "Gratuit" : "Payant"}</span>`);
+  badges.push(`<span class="badge">${a.duree.replace(/ \(.*/, "")}</span>`);
+  badges.push(`<span class="badge">${a.km} km d'Aunou</span>`);
+  if (a.pluie) badges.push(`<span class="badge rain">Jour de pluie</span>`);
+  if (a.note) badges.push(`<span class="badge star">★ ${a.note.v} · ${a.note.c} avis</span>`);
+
+  let deadline = "";
+  if (a.fin) {
+    const d = daysLeft(a.fin);
+    const quand = d < 0 ? "c'est passé" : d === 0 ? "aujourd'hui" : d === 1 ? "demain" : `dans ${d} jours`;
+    deadline = `<div class="deadline"><b>${a.finQuoi || "Ferme"}</b><span>${quand} — ${new Date(a.fin + "T12:00:00").toLocaleDateString("fr-FR", {day: "numeric", month: "long"})}</span></div>`;
+  }
+
+  const liens = [`<a href="${a.lien}" target="_blank" rel="noopener">${host(a.lien)}</a>`];
+  if (a.lien2) liens.push(`<a href="${a.lien2}" target="_blank" rel="noopener">${host(a.lien2)}</a>`);
+  if (a.tel) liens.push(`<span class="tel">${a.tel}</span>`);
+  liens.push(`<a href="https://www.google.com/maps/search/?api=1&query=${a.lat},${a.lon}" target="_blank" rel="noopener">itinéraire</a>`);
+
+  el.innerHTML = `
+    <div class="card-head">
+      <div class="place"><span>${a.ville}</span>${
+        (IN_GROUP.get(a.n) || []).map(g => `<span class="in-group">${g.titre}</span>`).join("")
+      }</div>
+      <h2>${a.n}</h2>
+      <p class="lead">${a.lead}</p>
+      <div class="badges">${badges.join("")}</div>
+    </div>
+    ${deadline}
+    <dl class="detail">
+      <dt>Horaires</dt><dd>${a.horaires.length === 1 ? a.horaires[0] : `<ul>${a.horaires.map(h => `<li>${h}</li>`).join("")}</ul>`}</dd>
+      <dt>Durée</dt><dd>${a.duree}</dd>
+      <dt>Tarif</dt><dd>${a.tarif}</dd>
+      <dt>Adresse</dt><dd>${a.adresse}</dd>
+      ${a.note && a.note.quoi ? `<dt>Note</dt><dd>${a.note.v}/5 (${a.note.c} avis) — ${a.note.quoi}</dd>` : ""}
+    </dl>
+    <div class="card-foot">
+      <p class="note">${a.notes}</p>
+      <div class="links">${liens.join("")}</div>
+    </div>`;
+  return el;
+}
+
+function matches(a) {
+  const f = state.filters;
+  if (state.groupe && !(IN_GROUP.get(a.n) || []).some(g => g.id === state.groupe)) return false;
+  if (f.has("gratuit") && !a.gratuit) return false;
+  if (f.has("pluie") && !a.pluie) return false;
+  if (f.has("court") && a.bucket !== "court") return false;
+  if (f.has("journee") && a.bucket !== "journee") return false;
+  if (f.has("urgent") && !(a.fin && daysLeft(a.fin) >= 0 && daysLeft(a.fin) <= 21)) return false;
+  if (state.q) {
+    const hay = [a.n, a.ville, a.lead, a.adresse, a.tarif, a.notes, a.horaires.join(" ")]
+      .join(" ").toLowerCase().replace(/<[^>]+>/g, "");
+    if (!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+
+function groupCard(g) {
+  const el = document.createElement("article");
+  el.className = "group";
+  const n = g.etapes.filter(e => e.a).length;
+  el.innerHTML = `
+    <div class="group-head">
+      <div class="when">${g.quand}</div>
+      <h3>${g.titre}</h3>
+      <p class="tagline">${g.tagline}</p>
+    </div>
+    ${g.contrainte ? `<div class="constraint"><b>Contrainte</b><span>${g.contrainte}</span></div>` : ""}
+    <ol class="steps">
+      ${g.etapes.map(e => `
+        <li>
+          <span class="moment">${e.q}</span>
+          <div>
+            ${e.a ? `<div class="what${e.opt ? " optional" : ""}"><b>${e.a}</b>${e.opt ? " <span class=\"why\">— si le temps le permet</span>" : ""}</div>` : ""}
+            <div class="why">${e.w}</div>
+          </div>
+        </li>`).join("")}
+    </ol>
+    <div class="group-foot">
+      <span class="budget">${g.budget}</span>
+      <button class="see" data-g="${g.id}">${n > 1 ? `Voir les ${n} fiches` : "Voir la fiche"}</button>
+    </div>`;
+  return el;
+}
+
+function render() {
+  const shown = DATA.filter(matches);
+  grid.replaceChildren(...shown.map(card));
+
+  if (state.groupe) {
+    const g = GROUPS.find(x => x.id === state.groupe);
+    const banner = document.createElement("div");
+    banner.className = "filter-banner";
+    banner.innerHTML = `<span>Journée <b>${g.titre}</b></span>
+      <button type="button" id="clearGroup">Revoir toutes les sorties</button>`;
+    grid.prepend(banner);
+    banner.querySelector("#clearGroup").addEventListener("click", () => {
+      state.groupe = null;
+      render();
+    });
+  }
+
+  if (!shown.length) {
+    const p = document.createElement("p");
+    p.className = "empty";
+    p.textContent = "Rien qui corresponde. Enlevez un filtre.";
+    grid.append(p);
+  }
+  document.getElementById("count").textContent =
+    `${shown.length} / ${DATA.length} sortie${shown.length > 1 ? "s" : ""}`;
+
+  const mc = document.getElementById("mapchips");
+  if (mc) mc.querySelectorAll(".chip").forEach(c =>
+    c.setAttribute("aria-pressed", String((c.dataset.g || null) === state.groupe)));
+  if (!document.getElementById("mapview").hidden) drawMap();
+}
+
+document.getElementById("q").addEventListener("input", e => {
+  state.q = e.target.value.trim().toLowerCase();
+  render();
+});
+
+document.getElementById("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  const k = b.dataset.f;
+  if (state.filters.has(k)) { state.filters.delete(k); b.setAttribute("aria-pressed", "false"); }
+  else { state.filters.add(k); b.setAttribute("aria-pressed", "true"); }
+  if (k === "court" && state.filters.has("journee")) {
+    state.filters.delete("journee");
+    document.querySelector('[data-f="journee"]').setAttribute("aria-pressed", "false");
+  }
+  if (k === "journee" && state.filters.has("court")) {
+    state.filters.delete("court");
+    document.querySelector('[data-f="court"]').setAttribute("aria-pressed", "false");
+  }
+  render();
+});
+
+/* ---------- la carte ---------- */
+
+const HOME = { lat: 48.6117, lon: 0.2303, nom: "Aunou-sur-Orne" };
+const DEG_KM = 111.2;                       // 1° de latitude
+const KX = Math.cos(48.5 * Math.PI / 180);  // correction de longitude à cette latitude
+
+// plusieurs sorties peuvent partager une commune (Falaise ×3, Saint-Céneri ×2)
+const LOCS = [];
+for (const a of DATA) {
+  const key = a.lat + "," + a.lon;
+  let loc = LOCS.find(l => l.key === key);
+  if (!loc) {
+    loc = { key, lat: a.lat, lon: a.lon, nom: a.court, km: a.km, act: [] };
+    LOCS.push(loc);
+  }
+  loc.act.push(a);
+  if (a.lat2) loc.pair = { lat: a.lat2, lon: a.lon2, nom: a.court2 };
+}
+
+const svgNS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, text) => {
+  const n = document.createElementNS(svgNS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (text != null) n.textContent = text;
+  return n;
+};
+
+const frame = document.getElementById("mapframe");
+const panel = document.getElementById("mappanel");
+let selected = null;
+
+function panelHint() {
+  panel.innerHTML = `<p class="hint">Survolez un point — ou tabulez dessus — pour voir ce qu'il y a à faire sur place.</p>`;
+}
+
+function panelShow(loc) {
+  panel.innerHTML = `
+    <div class="where">${loc.km} km d'Aunou à vol d'oiseau</div>
+    <h3>${loc.nom}${loc.pair ? " & " + loc.pair.nom : ""}</h3>
+    <ul>${loc.act.map(a => `
+      <li>
+        <button type="button" data-fiche="${slug(a.n)}">${a.n}</button>
+        <span class="badge ${a.gratuit ? "free" : "paid"}">${a.gratuit ? "Gratuit" : "Payant"}</span>
+        <span class="badge">${a.duree.replace(/ \(.*/, "")}</span>
+      </li>`).join("")}</ul>`;
+  panel.querySelectorAll("[data-fiche]").forEach(b => {
+    b.addEventListener("click", () => showFiche(b.dataset.fiche));
+  });
+}
+
+function showFiche(id) {
+  state.q = "";
+  document.getElementById("q").value = "";
+  state.filters.clear();
+  state.groupe = null;
+  document.querySelectorAll("#chips .chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+  setView("liste");
+  render();
+  const card = document.getElementById("fiche-" + id);
+  if (!card) return;
+  card.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "center" });
+  card.classList.remove("flash");
+  void card.offsetWidth;
+  card.classList.add("flash");
+}
+
+const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function drawMap() {
+  const pts = [HOME, ...LOCS, ...LOCS.filter(l => l.pair).map(l => l.pair)];
+  const latMin = Math.min(...pts.map(p => p.lat)), latMax = Math.max(...pts.map(p => p.lat));
+  const lonMin = Math.min(...pts.map(p => p.lon)), lonMax = Math.max(...pts.map(p => p.lon));
+  const spanY = latMax - latMin, spanX = (lonMax - lonMin) * KX;
+
+  // le secteur est deux fois plus haut que large : sur mobile, mieux vaut
+  // une carte qui déborde en largeur qu'une carte écrasée
+  const narrow = frame.clientWidth < 560;
+  const pad = narrow ? 42 : 78;
+  let W = Math.max(narrow ? 460 : 300, frame.clientWidth - 18);
+  let scale = (W - 2 * pad) / spanX;
+  let H = spanY * scale + 2 * pad;
+  const maxH = narrow ? 900 : Math.min(880, Math.max(460, innerHeight * 0.78));
+  if (H > maxH) {
+    scale = (maxH - 2 * pad) / spanY;
+    H = maxH;
+    W = spanX * scale + 2 * pad;
+  }
+  const VW = Math.max(W, frame.clientWidth - 18);
+  const X = lon => pad + (lon - lonMin) * KX * scale + (VW - W) / 2;
+  const Y = lat => pad + (latMax - lat) * scale;
+
+  const svg = el("svg", {
+    viewBox: `0 0 ${VW} ${H}`,
+    width: VW, height: H,
+    role: "img",
+    "aria-label": "Carte de repérage des sorties autour d'Aunou-sur-Orne"
+  });
+
+  // anneaux de distance depuis Aunou
+  const clip = el("clipPath", { id: "mapclip" });
+  clip.append(el("rect", { x: 0, y: 0, width: VW, height: H }));
+  const defs = el("defs");
+  defs.append(clip);
+  svg.append(defs);
+
+  const rings = el("g", { "clip-path": "url(#mapclip)" });
+  const hx = X(HOME.lon), hy = Y(HOME.lat);
+  for (const km of [25, 50, 75, 100]) {
+    const r = (km / DEG_KM) * scale;
+    rings.append(el("circle", { class: "ring", cx: hx, cy: hy, r }));
+    const a = -60 * Math.PI / 180;   // libellés vers le nord-est, secteur vide
+    rings.append(el("text", {
+      class: "ring-label", x: hx + r * Math.cos(a) + 4, y: hy + r * Math.sin(a) - 4
+    }, km + " km"));
+  }
+  svg.append(rings);
+
+  // trajet de la journée sélectionnée
+  const g = state.groupe && GROUPS.find(x => x.id === state.groupe);
+  const inRoute = new Set();
+  if (g && g.id !== "pluie") {
+    const seq = [];
+    for (const e of g.etapes) {
+      if (!e.a) continue;
+      const loc = LOCS.find(l => l.act.some(a => a.n === e.a));
+      if (loc) { inRoute.add(loc.key); if (seq[seq.length - 1] !== loc) seq.push(loc); }
+    }
+    if (seq.length > 1) {
+      svg.append(el("path", {
+        class: "route",
+        d: seq.map((l, i) => `${i ? "L" : "M"}${X(l.lon)},${Y(l.lat)}`).join(" ")
+      }));
+    }
+  }
+
+  // les points, du sud au nord pour un empilement de libellés prévisible
+  const ordered = [...LOCS].sort((a, b) => Y(a.lat) - Y(b.lat));
+  const placed = ordered.map(l => {           // les points sont des obstacles
+    const x = X(l.lon), y = Y(l.lat), r = 6 + (l.act.length - 1) * 1.8;
+    return { x1: x - r, x2: x + r, y1: y - r, y2: y + r };
+  });
+  for (const loc of ordered) {
+    const x = X(loc.lon), y = Y(loc.lat);
+    const visible = loc.act.some(matches);
+    const pin = el("g", {
+      class: "pin" + (visible ? "" : " off") + (inRoute.has(loc.key) ? " on" : ""),
+      tabindex: "0", role: "button",
+      "aria-label": `${loc.nom}, ${loc.km} km : ${loc.act.map(a => a.n).join(", ")}`
+    });
+
+    if (loc.pair) {
+      pin.append(el("line", { class: "pair-link", x1: x, y1: y, x2: X(loc.pair.lon), y2: Y(loc.pair.lat) }));
+      pin.append(el("circle", { class: "dot", cx: X(loc.pair.lon), cy: Y(loc.pair.lat), r: 3.5 }));
+    }
+    const r = 4.5 + (loc.act.length - 1) * 1.8;
+    pin.append(el("circle", { class: "halo", cx: x, cy: y, r: r + 6 }));
+    pin.append(el("circle", { class: "dot", cx: x, cy: y, r }));
+
+    // libellé : à droite par défaut, à gauche près du bord, décalé s'il en heurte un autre
+    const right = x < VW * 0.55;
+    const w = loc.nom.length * 7.2 + (loc.act.length > 1 ? 26 : 0);
+    let ty = y + 4;
+    const tx = right ? x + r + 8 : x - r - 8;
+    const box = () => ({ x1: right ? tx : tx - w, x2: right ? tx + w : tx, y1: ty - 11, y2: ty + 5 });
+    let guard = 0;
+    while (guard++ < 8 && placed.some(p => {
+      const b = box();
+      return b.x1 < p.x2 && b.x2 > p.x1 && b.y1 < p.y2 && b.y2 > p.y1;
+    })) ty += 15;
+    placed.push(box());
+
+    if (ty > y + 8) {                        // libellé décalé : on le relie à son point
+      pin.append(el("line", {
+        class: "leader", x1: x + (right ? r : -r), y1: y,
+        x2: tx + (right ? -2 : 2), y2: ty - 4
+      }));
+    }
+    const t = el("text", { x: tx, y: ty, "text-anchor": right ? "start" : "end" });
+    t.append(document.createTextNode(loc.nom));
+    if (loc.act.length > 1) t.append(el("tspan", { class: "n", dx: 6 }, `${loc.act.length} sorties`));
+    pin.append(t);
+
+    const enter = () => { panelShow(loc); };
+    pin.addEventListener("mouseenter", enter);
+    pin.addEventListener("focus", enter);
+    pin.addEventListener("mouseleave", () => { if (!selected) panelHint(); else panelShow(selected); });
+    pin.addEventListener("click", () => { selected = loc; panelShow(loc); });
+    pin.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selected = loc; panelShow(loc); }
+    });
+    svg.append(pin);
+  }
+
+  // le camp de base
+  const home = el("g", { class: "home" });
+  home.append(el("circle", { cx: hx, cy: hy, r: 4 }));
+  home.append(el("path", {
+    d: `M${hx - 9},${hy} L${hx},${hy - 9} L${hx + 9},${hy} L${hx},${hy + 9} Z`,
+    fill: "none", stroke: "currentColor", "stroke-width": 1.5
+  }));
+  home.append(el("text", { x: hx, y: hy - 16, "text-anchor": "middle" }, "Aunou"));
+  svg.append(home);
+
+  // échelle et nord
+  const sb = el("g", { class: "scalebar" });
+  const len = (25 / DEG_KM) * scale;
+  const sx = 24, sy = H - 24;
+  sb.append(el("path", { d: `M${sx},${sy - 5} L${sx},${sy} L${sx + len},${sy} L${sx + len},${sy - 5}` }));
+  sb.append(el("text", { x: sx, y: sy - 10 }, "25 km"));
+  svg.append(sb);
+
+  const co = el("g");
+  co.append(el("path", { d: `M24,44 L24,24 M24,24 L20,30 M24,24 L28,30`, stroke: "currentColor", fill: "none", "stroke-width": 1.2, class: "compass" }));
+  co.append(el("text", { class: "compass", x: 32, y: 32 }, "N"));
+  svg.append(co);
+
+  frame.replaceChildren(svg);
+}
+
+function setView(v) {
+  document.querySelectorAll(".viewtabs button").forEach(b =>
+    b.setAttribute("aria-selected", String(b.dataset.v === v)));
+  document.getElementById("grid").hidden = v !== "liste";
+  document.getElementById("mapview").hidden = v !== "carte";
+  if (v === "carte") drawMap();
+}
+
+document.querySelector(".viewtabs").addEventListener("click", e => {
+  const b = e.target.closest("button[data-v]");
+  if (b) setView(b.dataset.v);
+});
+
+// sélecteur de journée, propre à la carte
+const mapchips = document.getElementById("mapchips");
+mapchips.append(...[{ id: null, titre: "Tout" }, ...GROUPS.filter(g => g.id !== "pluie")].map(g => {
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.textContent = g.titre;
+  b.dataset.g = g.id ?? "";
+  b.setAttribute("aria-pressed", String(state.groupe === g.id));
+  return b;
+}));
+mapchips.addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  state.groupe = b.dataset.g || null;
+  mapchips.querySelectorAll(".chip").forEach(c =>
+    c.setAttribute("aria-pressed", String((c.dataset.g || null) === state.groupe)));
+  render();
+  drawMap();
+});
+
+let resizeTimer;
+addEventListener("resize", () => {
+  if (document.getElementById("mapview").hidden) return;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(drawMap, 150);
+});
+
+panelHint();
+
+document.getElementById("groups").replaceChildren(...GROUPS.map(groupCard));
+
+document.getElementById("groups").addEventListener("click", e => {
+  const b = e.target.closest(".see");
+  if (!b) return;
+  state.groupe = b.dataset.g;
+  render();
+  document.querySelector(".toolbar").scrollIntoView({
+    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    block: "start"
+  });
+});
+
+document.getElementById("today").textContent =
+  "Consulté le " + TODAY.toLocaleDateString("fr-FR", {day: "numeric", month: "long", year: "numeric"});
+
+render();
+</script>
