@@ -422,8 +422,20 @@
     justify-content: space-between;
     border-top: 1px solid var(--line);
   }
-  .budget { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
-  .budget b { color: var(--ink); font-weight: 700; }
+  .group-foot .facts { display: grid; gap: 5px; }
+  .budget, .drive {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .budget b, .drive b { color: var(--ink); font-weight: 700; }
+  .drive::before {
+    content: "Volant"; color: var(--ink-faint); letter-spacing: .1em;
+    text-transform: uppercase; font-size: 10px; margin-right: 8px;
+  }
+  .budget::before {
+    content: "Budget"; color: var(--ink-faint); letter-spacing: .1em;
+    text-transform: uppercase; font-size: 10px; margin-right: 8px;
+  }
   .see {
     font: inherit; font-size: 12.5px; font-family: var(--mono);
     background: transparent; border: 1px solid var(--line); color: var(--ink-soft);
@@ -528,7 +540,7 @@
 
   <section class="mapview" id="mapview" role="tabpanel" aria-labelledby="tab-carte" hidden>
     <div class="map-intro">
-      <p>Distances à vol d'oiseau depuis Aunou-sur-Orne. Les cercles sont espacés de 25 km. Un point = une commune ; les trois sites de Falaise et les deux de Saint-Céneri sont sur le même point.</p>
+      <p>Les cercles sont à vol d'oiseau, espacés de 25 km depuis Aunou-sur-Orne ; les durées annoncées, elles, sont celles de la route. Un point = une commune : les trois sites de Falaise et les deux de Saint-Céneri se superposent.</p>
       <div class="chips" id="mapchips"></div>
     </div>
     <div class="map-body">
@@ -545,8 +557,8 @@
     <div class="groups" id="groups"></div>
     <div class="arbitrage">
       <h4>Deux arbitrages à trancher</h4>
-      <p style="margin:0"><strong>Les zoos font doublon</strong> : Spaycific'Zoo (Spay) et le Zoo de La Flèche sont dans le même département, à 40 min l'un de l'autre. La Flèche est nettement plus grand — mais aussi deux fois plus cher et sur la journée entière.</p>
-      <p style="margin:0"><strong>Le Manoir de Courboyer ne rentre dans aucune journée</strong> : le Perche est à l'opposé du reste de la liste. Et ses visites guidées s'arrêtent le 21 août — passé cette date, ça devient une balade gratuite dans le domaine, pas une visite.</p>
+      <p style="margin:0"><strong>Les zoos font doublon</strong> : 34 min séparent Spay de La Flèche. La Flèche est nettement plus grand, mais deux fois plus cher, sur la journée entière, et à <strong>1 h 29 de route</strong> — la sortie la plus lointaine de toute la liste. Spay est à 1 h 08, et surtout à 19 min du Mans : c'est le seul des deux qui se glisse dans une autre journée.</p>
+      <p style="margin:0"><strong>Le Manoir de Courboyer ne se combine avec rien</strong> : il n'est qu'à 44 min d'Aunou, mais 1 h 33 le séparent de Bagnoles et 1 h 02 de Saint-Céneri. C'est une demi-journée à lui tout seul, dans l'autre direction. Ses visites guidées se sont arrêtées le 21 août — reste le domaine, en accès libre.</p>
     </div>
   </section>
 
@@ -575,7 +587,7 @@
 const DATA = [
   {
     n: "Jardins de la Mansonnière",
-    lat: 48.3797, lon: -0.0526, km: 33, court: "Saint-Céneri",
+    lat: 48.3797, lon: -0.0526, km: 49, min: 39, court: "Saint-Céneri",
     ville: "Saint-Céneri-le-Gérei (61)",
     lead: "Jardin remarquable privé de Michèle et Philippe Manson, à deux pas du village.",
     adresse: "Les Jardins de la Mansonnière, 61250 Saint-Céneri-le-Gérei",
@@ -590,7 +602,7 @@ const DATA = [
   },
   {
     n: "Village de Saint-Céneri-le-Gérei",
-    lat: 48.3797, lon: -0.0526, km: 33, court: "Saint-Céneri",
+    lat: 48.3797, lon: -0.0526, km: 49, min: 39, court: "Saint-Céneri",
     ville: "Saint-Céneri-le-Gérei (61)",
     lead: "Un des « Plus Beaux Villages de France » : maisons en grès roussard au-dessus de la Sarthe, au cœur des Alpes mancelles.",
     adresse: "61250 Saint-Céneri-le-Gérei",
@@ -603,7 +615,7 @@ const DATA = [
   },
   {
     n: "Château de Carrouges",
-    lat: 48.567, lon: -0.1449, km: 28, court: "Carrouges",
+    lat: 48.567, lon: -0.1449, km: 33, min: 30, court: "Carrouges",
     ville: "Carrouges (61)",
     lead: "Château-monument national du XIV<sup>e</sup>, brique et douves, avec un parc de 10 ha.",
     adresse: "3 Le Château, 61320 Carrouges",
@@ -617,7 +629,7 @@ const DATA = [
   },
   {
     n: "Spaycific'Zoo",
-    lat: 47.9241, lon: 0.1511, km: 77, court: "Spay",
+    lat: 47.9241, lon: 0.1511, km: 102, min: 68, court: "Spay",
     ville: "Spay (72)",
     lead: "Petit zoo familial de 6 ha, 600 animaux, côté Sarthe.",
     adresse: "542 route de la Martinière, 72700 Spay",
@@ -631,7 +643,7 @@ const DATA = [
   },
   {
     n: "Domfront",
-    lat: 48.5865, lon: -0.6226, km: 63, court: "Domfront",
+    lat: 48.5865, lon: -0.6226, km: 78, min: 65, court: "Domfront",
     ville: "Domfront-en-Poiraie (61)",
     lead: "Cité médiévale perchée : ruines d'un donjon de 25 m, remparts et vieille ville.",
     adresse: "61700 Domfront-en-Poiraie",
@@ -646,7 +658,7 @@ const DATA = [
   },
   {
     n: "Ouistreham — Le Grand Bunker",
-    lat: 49.2761, lon: -0.2585, km: 82, court: "Ouistreham",
+    lat: 49.2761, lon: -0.2585, km: 101, min: 70, court: "Ouistreham",
     ville: "Ouistreham (14)",
     lead: "La plage de Riva-Bella et le musée du Mur de l'Atlantique, dans un vrai bunker allemand sur cinq niveaux.",
     adresse: "6 av. du 6 Juin, 14150 Ouistreham",
@@ -660,7 +672,7 @@ const DATA = [
   },
   {
     n: "Château de Guillaume le Conquérant",
-    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    lat: 48.8965, lon: -0.1999, km: 52, min: 35, court: "Falaise",
     ville: "Falaise (14)",
     lead: "Château fort du XI<sup>e</sup> avec tablettes Histopad en réalité augmentée, dans la ville natale de Guillaume.",
     adresse: "Place Guillaume le Conquérant, 14700 Falaise",
@@ -675,7 +687,7 @@ const DATA = [
   },
   {
     n: "Musée des Automates",
-    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    lat: 48.8965, lon: -0.1999, km: 52, min: 35, court: "Falaise",
     ville: "Falaise (14)",
     lead: "Collection d'automates de vitrines de grands magasins, entièrement couvert.",
     adresse: "Boulevard de la Libération, 14700 Falaise",
@@ -690,7 +702,7 @@ const DATA = [
   },
   {
     n: "Vieux Lavoir",
-    lat: 48.8965, lon: -0.1999, km: 45, court: "Falaise",
+    lat: 48.8965, lon: -0.1999, km: 52, min: 35, court: "Falaise",
     ville: "Falaise (14)",
     lead: "Lavoir du XIX<sup>e</sup> restauré au pied du château, dans le quartier du Val d'Ante.",
     adresse: "Quartier du Val d'Ante, 14700 Falaise",
@@ -703,7 +715,7 @@ const DATA = [
   },
   {
     n: "Manoir de Courboyer — Maison du Parc",
-    lat: 48.3967, lon: 0.6701, km: 40, court: "Courboyer",
+    lat: 48.3967, lon: 0.6701, km: 47, min: 44, court: "Courboyer",
     ville: "Perche-en-Nocé (61)",
     lead: "Manoir du XV<sup>e</sup> et maison du Parc naturel régional du Perche, avec un domaine sillonné de sentiers.",
     adresse: "61340 Perche-en-Nocé (ex-Nocé)",
@@ -719,7 +731,7 @@ const DATA = [
   },
   {
     n: "Haras du Pin",
-    lat: 48.7449, lon: 0.1419, km: 16, court: "Le Pin-au-Haras",
+    lat: 48.7449, lon: 0.1419, km: 22, min: 22, court: "Le Pin-au-Haras",
     ville: "Le Pin-au-Haras (61)",
     lead: "Le « Versailles du cheval » : haras national avec cour d'honneur, écuries et spectacles équestres.",
     adresse: "61310 Le Pin-au-Haras",
@@ -733,7 +745,7 @@ const DATA = [
   },
   {
     n: "Roche d'Oëtre & Clécy",
-    lat: 48.8283, lon: -0.3814, km: 51, court: "Roche d'Oëtre",
+    lat: 48.8283, lon: -0.3814, km: 67, min: 51, court: "Roche d'Oëtre",
     lat2: 48.9162, lon2: -0.4822, court2: "Clécy",
     ville: "Suisse normande (61 / 14)",
     lead: "Le plus beau panorama de Normandie — 118 m au-dessus des gorges de la Rouvre — puis Clécy et ses pédalos sur l'Orne.",
@@ -750,7 +762,7 @@ const DATA = [
   },
   {
     n: "Fresnay-sur-Sarthe",
-    lat: 48.2808, lon: 0.0223, km: 40, court: "Fresnay",
+    lat: 48.2808, lon: 0.0223, km: 55, min: 38, court: "Fresnay",
     ville: "Fresnay-sur-Sarthe (72)",
     lead: "Petite cité de caractère sur éperon rocheux, nettement moins courue que Saint-Céneri.",
     adresse: "72130 Fresnay-sur-Sarthe",
@@ -759,11 +771,11 @@ const DATA = [
     tarif: "Gratuit", gratuit: true, pluie: false,
     note: null,
     lien: "https://www.tourisme-alpesmancelles.com/",
-    notes: "Ruines du château avec poterne à deux tours, église romane Notre-Dame (porte sculptée du XVI<sup>e</sup>), halles de 1460, musée des Coiffes. <strong>Très proche d'Aunou</strong> — le bon plan pour une demi-journée improvisée."
+    notes: "Ruines du château avec poterne à deux tours, église romane Notre-Dame (porte sculptée du XVI<sup>e</sup>), halles de 1460, musée des Coiffes. Malgré ce que disaient les notes, ce n'est pas la sortie la plus proche : <strong>38 min de route</strong>, contre 18 pour Sassy et 22 pour le Haras. En revanche c'est à 19 min de Saint-Céneri."
   },
   {
     n: "Bagnoles-de-l'Orne",
-    lat: 48.5698, lon: -0.4212, km: 48, court: "Bagnoles",
+    lat: 48.5698, lon: -0.4212, km: 63, min: 53, court: "Bagnoles",
     ville: "Bagnoles-de-l'Orne-Normandie (61)",
     lead: "Station thermale Belle Époque : lac, villas extravagantes et forêt des Andaines.",
     adresse: "61140 Bagnoles-de-l'Orne-Normandie",
@@ -777,7 +789,7 @@ const DATA = [
   },
   {
     n: "Mont des Avaloirs",
-    lat: 48.4528, lon: -0.1989, km: 36, court: "Mont des Avaloirs",
+    lat: 48.4528, lon: -0.1989, km: 57, min: 46, court: "Mont des Avaloirs",
     ville: "Pré-en-Pail-Saint-Samson (53)",
     lead: "Point culminant du Grand Ouest, 417 m, avec un belvédère panoramique à 360°.",
     adresse: "53370 Pré-en-Pail-Saint-Samson (Mayenne)",
@@ -790,7 +802,7 @@ const DATA = [
   },
   {
     n: "Château de Sassy",
-    lat: 48.6656, lon: 0.0075, km: 17, court: "Sassy",
+    lat: 48.6656, lon: 0.0075, km: 24, min: 18, court: "Sassy",
     ville: "Boischampré (61)",
     lead: "Château du XVIII<sup>e</sup> et jardins en terrasses à la française — visite guidée uniquement.",
     adresse: "28 route de Sassy, Saint-Christophe-le-Jajolet, 61570 Boischampré",
@@ -806,7 +818,7 @@ const DATA = [
   },
   {
     n: "Zoo de La Flèche",
-    lat: 47.6968, lon: -0.0746, km: 104, court: "La Flèche",
+    lat: 47.6968, lon: -0.0746, km: 135, min: 89, court: "La Flèche",
     ville: "La Flèche (72)",
     lead: "14 ha, 1 500 animaux, environ 150 espèces — le meilleur parc animalier du secteur.",
     adresse: "72200 La Flèche",
@@ -821,7 +833,7 @@ const DATA = [
   },
   {
     n: "Le Mans — Cité Plantagenêt",
-    lat: 48.0074, lon: 0.1968, km: 67, court: "Le Mans",
+    lat: 48.0074, lon: 0.1968, km: 85, min: 60, court: "Le Mans",
     ville: "Le Mans (72)",
     lead: "9 ha de ville médiévale dans l'enceinte romaine du III<sup>e</sup> siècle, dominés par la cathédrale Saint-Julien.",
     adresse: "2 place Saint-Michel, 72000 Le Mans",
@@ -836,7 +848,7 @@ const DATA = [
   },
   {
     n: "Grottes de Saulges",
-    lat: 48.0009, lon: -0.3584, km: 81, court: "Saulges",
+    lat: 48.0009, lon: -0.3584, km: 124, min: 82, court: "Saulges",
     ville: "Thorigné-en-Charnie (53)",
     lead: "Grottes préhistoriques dans le canyon de l'Erve, avec un musée de Préhistoire.",
     adresse: "53270 Thorigné-en-Charnie / Saulges (Mayenne)",
@@ -863,6 +875,7 @@ const GROUPS = [
       {q: "Après-midi", a: "Musée des Automates", w: "Une heure au frais et entièrement couvert. Attention aux coupures du midi : ni mardi ni samedi entre 12 h et 14 h."},
       {q: "Fin de journée", a: "Vieux Lavoir", w: "Trente minutes au pied du château, ouvert jusqu'à 18 h. Gratuit."}
     ],
+    drive: "<b>1 h 10</b> aller-retour, 104 km",
     budget: "14,50 € par adulte — ou <b>39 €</b> la famille en cumulant les deux forfaits (24 € + 15 €)"
   },
   {
@@ -870,18 +883,20 @@ const GROUPS = [
     titre: "Les Alpes mancelles",
     quand: "Journée · Orne & Sarthe",
     tagline: "Le plus beau village de la liste, son jardin remarquable, et une cité de caractère en prime.",
-    contrainte: "Jeudi à dimanche uniquement (la Mansonnière ferme lundi, mardi et mercredi) — et avant le 31 août.",
+    contrainte: "Jeudi à dimanche jusqu'au 31 août (la Mansonnière ferme lundi, mardi et mercredi), puis samedi et dimanche seulement jusqu'au 13 septembre.",
     etapes: [
       {q: "Matin", a: "Village de Saint-Céneri-le-Gérei", w: "L'église romane, la chapelle et la source, de l'autre côté de la Sarthe. Gratuit."},
       {q: "14 h 30", a: "Jardins de la Mansonnière", w: "L'ouverture est à 14 h 30 pile : c'est elle qui cale la journée. Dernière entrée à 18 h."},
-      {q: "En option", a: "Fresnay-sur-Sarthe", w: "À côté, et le plus près d'Aunou de toute la liste. Visite guidée gratuite le jeudi après-midi en août.", opt: true}
+      {q: "En option", a: "Fresnay-sur-Sarthe", w: "À 19 min de Saint-Céneri. Visite guidée gratuite le jeudi après-midi en août.", opt: true},
+      {q: "En option", a: "Mont des Avaloirs", w: "À 24 min de Saint-Céneri : c'est le même massif. 108 marches, et une vue jusqu'à 100 km.", opt: true}
     ],
+    drive: "<b>1 h 18</b> aller-retour ; 1 h 36 avec Fresnay, 2 h 08 avec les deux options",
     budget: "<b>8 €</b> par adulte, 4 € par enfant — tout le reste est gratuit"
   },
   {
     id: "chateaux",
     titre: "Trois châteaux de l'Orne",
-    quand: "Journée chargée · Orne",
+    quand: "Journée · Orne",
     tagline: "Carrouges, Sassy et le Haras du Pin se tiennent dans un mouchoir de poche, entre Alençon et Argentan.",
     contrainte: "Avant le 30 août — Sassy ferme ce jour-là. Carrouges coupe de 12 h 45 à 14 h.",
     etapes: [
@@ -889,19 +904,21 @@ const GROUPS = [
       {q: "Après-midi", a: "Château de Sassy", w: "Visites guidées en continu de 11 h à 17 h. Beaucoup de marches."},
       {q: "En option", a: "Haras du Pin", w: "Déjà calé pour le dimanche 23. Si vous y allez un jeudi, le spectacle est à 16 h.", opt: true}
     ],
+    drive: "<b>1 h 10</b> pour Carrouges et Sassy ; 1 h 39 en ajoutant le Haras",
     budget: "27 € par adulte pour les trois — <b>20 €</b> si vous avez moins de 26 ans (Carrouges gratuit)"
   },
   {
     id: "bocage",
     titre: "Domfront & Bagnoles",
-    quand: "Journée · ouest de l'Orne",
+    quand: "Journée chargée · ouest de l'Orne",
     tagline: "Une cité médiévale perchée et une station thermale Belle Époque, à vingt minutes l'une de l'autre.",
     contrainte: "Un mardi ou un vendredi pour attraper les visites guidées de Domfront (14 h 30 et 15 h 30). Éviter le jeudi et le dimanche : l'office de tourisme de Bagnoles est fermé.",
     etapes: [
       {q: "Matin", a: "Domfront", w: "Les vestiges du donjon et la vieille ville. Libre, ou 4 € la visite guidée."},
       {q: "Après-midi", a: "Bagnoles-de-l'Orne", w: "Le lac et ses pédalos, le quartier Belle Époque, l'arboretum du parc de l'hôtel de ville."},
-      {q: "Sur la route", a: "Mont des Avaloirs", w: "108 marches et une vue à 100 km, pour une heure. C'est sur le trajet depuis Aunou.", opt: true}
+      {q: "En option", a: "Château de Carrouges", w: "À 24 min de Bagnoles, et vraiment sur le chemin du retour : le détour ne coûte que 2 min. Gratuit pour les moins de 26 ans.", opt: true}
     ],
+    drive: "<b>2 h 13</b> aller-retour — repasser par Carrouges ne coûte que 2 min de plus",
     budget: "Gratuit — <b>4 €</b> par personne si vous prenez la visite guidée de Domfront"
   },
   {
@@ -914,6 +931,7 @@ const GROUPS = [
       {q: "Matin", a: "Roche d'Oëtre & Clécy", w: "Vingt minutes au belvédère, puis une à trois heures de sentiers au-dessus des gorges de la Rouvre. Chaussures fermées."},
       {q: "Après-midi", a: null, w: "Descente sur Clécy : pédalos, barques ou bateaux électriques à Beau Rivage. Accrobranche et café-restaurant sur place."}
     ],
+    drive: "<b>2 h 11</b> aller-retour, 164 km",
     budget: "Site et parking <b>gratuits</b> — seules les locations à Clécy sont payantes"
   },
   {
@@ -924,22 +942,24 @@ const GROUPS = [
     contrainte: "Vendredi ou samedi pour le spectacle de 21 h 15, jusqu'au 5 septembre.",
     etapes: [
       {q: "Après-midi", a: "Le Mans — Cité Plantagenêt", w: "Neuf hectares de ville médiévale dans l'enceinte romaine. Se garer hors les murs."},
+      {q: "En option", a: "Spaycific'Zoo", w: "À 19 min du Mans : c'est la seule façon de caser ce zoo sans y consacrer une journée entière.", opt: true},
       {q: "21 h 15", a: null, w: "« Les Nouveaux Mystères de la Cathédrale », spectacle déambulatoire, 8 à 12 €."}
     ],
+    drive: "<b>1 h 59</b> aller-retour dont 1 h de nuit ; 2 h 26 avec le zoo de Spay",
     budget: "Gratuit de jour — <b>8 à 12 €</b> pour le spectacle du soir"
   },
   {
     id: "pluie",
     titre: "S'il pleut",
     quand: "Repli · toute la semaine",
-    tagline: "Les sorties de la liste qui tiennent sous la pluie, de la meilleure à la moins bonne.",
+    tagline: "Les sorties qui tiennent sous la pluie, de la meilleure à la moins bonne — mais la meilleure est aussi la plus lointaine.",
     contrainte: null,
     etapes: [
-      {q: "Le mieux", a: "Grottes de Saulges", w: "Sous terre, avec le musée de Préhistoire inclus. Réservation conseillée en août."},
-      {q: "Sinon", a: "Ouistreham — Le Grand Bunker", w: "Cinq niveaux couverts — mais beaucoup d'escaliers, et la plage tombe à l'eau."},
-      {q: "Sinon", a: "Musée des Automates", w: "Entièrement couvert, une heure. Mardi à samedi seulement.", opt: true},
+      {q: "Le mieux", a: "Grottes de Saulges", w: "Sous terre, musée de Préhistoire inclus. Mais c'est aussi le plus loin : 1 h 22 de route. Réservation conseillée en août."},
+      {q: "Sinon", a: "Ouistreham — Le Grand Bunker", w: "Cinq niveaux couverts, à 1 h 10 — mais beaucoup d'escaliers, et la plage tombe à l'eau."},
+      {q: "Sinon", a: "Musée des Automates", w: "Entièrement couvert, une heure, à 35 min. Mardi à samedi seulement.", opt: true},
       {q: "Sinon", a: "Château de Guillaume le Conquérant", w: "La visite se fait surtout à l'intérieur, tablette en main.", opt: true},
-      {q: "En dépannage", a: "Château de Carrouges", w: "L'intérieur se visite ; le parc et les douves, beaucoup moins par temps de pluie.", opt: true}
+      {q: "En dépannage", a: "Château de Carrouges", w: "Le plus proche de tous, 30 min. L'intérieur se visite ; le parc et les douves, beaucoup moins.", opt: true}
     ],
     budget: "À partir de <b>16 €</b> par adulte à Saulges (musée compris), 3,50 € pour les 5–18 ans"
   }
@@ -988,7 +1008,7 @@ function card(a) {
   const badges = [];
   badges.push(`<span class="badge ${a.gratuit ? "free" : "paid"}">${a.gratuit ? "Gratuit" : "Payant"}</span>`);
   badges.push(`<span class="badge">${a.duree.replace(/ \(.*/, "")}</span>`);
-  badges.push(`<span class="badge">${a.km} km d'Aunou</span>`);
+  badges.push(`<span class="badge">${a.min} min de route · ${a.km} km</span>`);
   if (a.pluie) badges.push(`<span class="badge rain">Jour de pluie</span>`);
   if (a.note) {
     const v = parseFloat(a.note.v.replace(",", "."));
@@ -1068,7 +1088,10 @@ function groupCard(g) {
         </li>`).join("")}
     </ol>
     <div class="group-foot">
-      <span class="budget">${g.budget}</span>
+      <div class="facts">
+        ${g.drive ? `<span class="drive">${g.drive}</span>` : ""}
+        <span class="budget">${g.budget}</span>
+      </div>
       <button class="see" data-g="${g.id}">${n > 1 ? `Voir les ${n} fiches` : "Voir la fiche"}</button>
     </div>`;
   return el;
@@ -1140,7 +1163,7 @@ for (const a of DATA) {
   const key = a.lat + "," + a.lon;
   let loc = LOCS.find(l => l.key === key);
   if (!loc) {
-    loc = { key, lat: a.lat, lon: a.lon, nom: a.court, km: a.km, act: [] };
+    loc = { key, lat: a.lat, lon: a.lon, nom: a.court, km: a.km, min: a.min, act: [] };
     LOCS.push(loc);
   }
   loc.act.push(a);
@@ -1165,7 +1188,7 @@ function panelHint() {
 
 function panelShow(loc) {
   panel.innerHTML = `
-    <div class="where">${loc.km} km d'Aunou à vol d'oiseau</div>
+    <div class="where">${loc.min} min de route d'Aunou · ${loc.km} km</div>
     <h3>${loc.nom}${loc.pair ? " & " + loc.pair.nom : ""}</h3>
     <ul>${loc.act.map(a => `
       <li>
@@ -1275,7 +1298,7 @@ function drawMap() {
     const pin = el("g", {
       class: "pin" + (visible ? "" : " off") + (inRoute.has(loc.key) ? " on" : ""),
       tabindex: "0", role: "button",
-      "aria-label": `${loc.nom}, ${loc.km} km : ${loc.act.map(a => a.n).join(", ")}`
+      "aria-label": `${loc.nom}, ${loc.min} min de route : ${loc.act.map(a => a.n).join(", ")}`
     });
 
     if (loc.pair) {
