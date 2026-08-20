@@ -197,8 +197,13 @@
     overflow: hidden;
     display: flex; flex-direction: column;
   }
-  .card-head { padding: 18px 20px 14px; display: grid; gap: 10px; }
-  .card h2 {
+  details.card > summary {
+    padding: 18px 20px 14px; display: grid; gap: 10px;
+    list-style: none; cursor: default;
+  }
+  details.card > summary::-webkit-details-marker { display: none; }
+  .card-more { display: none; }
+  .card > summary > h2 {
     font-family: var(--serif);
     font-weight: 400;
     font-size: 1.42rem;
@@ -241,6 +246,7 @@
     border-bottom: 1px solid var(--line);
   }
   .deadline b { font-weight: 700; }
+  .card > summary .deadline { margin: 4px -20px -14px; }
 
   dl.detail {
     margin: 0; padding: 14px 20px 4px;
@@ -387,7 +393,8 @@
   }
 
   /* ---------- journées groupées ---------- */
-  .itineraires { margin-top: 76px; border-top: 1px solid var(--line); padding-top: 32px; }
+  .itineraires { display: block; }
+  .toolbar[hidden] { display: none; }
   .section-head { display: grid; gap: 6px; margin-bottom: 26px; max-width: 64ch; }
   .section-head h2 {
     font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.2rem);
@@ -492,6 +499,27 @@
   }
   .card .in-group { color: var(--accent); }
 
+  /* sur mobile la fiche est repliée : l'en-tête devient le bouton */
+  @media (max-width: 699px) {
+    details.card > summary { cursor: pointer; }
+    details.card > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+    .card-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .card-more::after {
+      content: ""; width: 6px; height: 6px; margin-bottom: 2px;
+      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg); transition: transform .15s;
+    }
+    details.card[open] > summary .card-more::after { transform: rotate(-135deg); margin-bottom: -2px; }
+    details.card[open] > summary .card-more { color: var(--ink-faint); }
+    details.card[open] > summary .card-more::before { content: "Replier"; }
+    details.card[open] > summary .card-more { font-size: 0; }
+    details.card[open] > summary .card-more::before { font-size: 11px; }
+  }
+
   /* ---------- programme ---------- */
   .programme { margin-top: 72px; border-top: 1px solid var(--line); padding-top: 32px; }
   .programme h2 {
@@ -546,6 +574,7 @@
   <div class="sticky-bar">
     <div class="viewtabs" role="tablist" aria-label="Affichage">
       <button role="tab" id="tab-liste" aria-selected="true" aria-controls="grid" data-v="liste">Les fiches</button>
+      <button role="tab" id="tab-jours" aria-selected="false" aria-controls="itineraires" data-v="jours">Les journées</button>
       <button role="tab" id="tab-carte" aria-selected="false" aria-controls="mapview" data-v="carte">La carte</button>
     </div>
     <nav class="toolbar" aria-label="Filtres">
@@ -574,10 +603,10 @@
     </div>
   </section>
 
-  <section class="itineraires">
+  <section class="itineraires" id="itineraires" role="tabpanel" aria-labelledby="tab-jours" hidden>
     <div class="section-head">
       <h2>Des journées toutes faites</h2>
-      <p>Six journées qui tiennent debout géographiquement — les sorties du secteur sont trop dispersées pour être piochées au hasard — et un plan de repli pour les jours de pluie. Le bouton en bas de chaque journée ne garde que ses fiches dans la liste ci-dessus.</p>
+      <p>Six journées qui tiennent debout géographiquement — les sorties du secteur sont trop dispersées pour être piochées au hasard — et un plan de repli pour les jours de pluie. Le bouton en bas de chaque journée bascule vers l'onglet des fiches en ne gardant que les siennes.</p>
     </div>
     <div class="groups" id="groups"></div>
     <div class="arbitrage">
@@ -1026,7 +1055,7 @@ function tarifCell(tarif) {
 }
 
 function card(a) {
-  const el = document.createElement("article");
+  const el = document.createElement("details");
   el.className = "card";
   el.id = "fiche-" + slug(a.n);
 
@@ -1053,15 +1082,16 @@ function card(a) {
   liens.push(`<a href="https://www.google.com/maps/search/?api=1&query=${a.lat},${a.lon}" target="_blank" rel="noopener">itinéraire</a>`);
 
   el.innerHTML = `
-    <div class="card-head">
+    <summary class="card-head">
       <div class="place"><span>${a.ville}</span>${
         (IN_GROUP.get(a.n) || []).map(g => `<span class="in-group">${g.titre}</span>`).join("")
       }</div>
       <h2>${a.n}</h2>
       <p class="lead">${a.lead}</p>
       <div class="badges">${badges.join("")}</div>
-    </div>
-    ${deadline}
+      <span class="card-more">Voir le détail</span>
+      ${deadline}
+    </summary>
     <dl class="detail">
       <dt>Horaires</dt><dd>${a.horaires.length === 1 ? a.horaires[0] : `<ul>${a.horaires.map(h => `<li>${h}</li>`).join("")}</ul>`}</dd>
       <dt>Durée</dt><dd>${a.duree}</dd>
@@ -1122,6 +1152,15 @@ function groupCard(g) {
   return el;
 }
 
+const WIDE = () => innerWidth >= 700;
+let wasWide = WIDE();
+
+// dépliées sur grand écran, repliées sur mobile
+function syncCards() {
+  const w = WIDE();
+  document.querySelectorAll("details.card").forEach(d => { d.open = w; });
+}
+
 function render() {
   const shown = DATA.filter(matches);
   grid.replaceChildren(...shown.map(card));
@@ -1147,6 +1186,8 @@ function render() {
   }
   document.getElementById("count").textContent =
     `${shown.length} / ${DATA.length} sortie${shown.length > 1 ? "s" : ""}`;
+
+  syncCards();
 
   const mc = document.getElementById("mapchips");
   if (mc) mc.querySelectorAll(".chip").forEach(c =>
@@ -1241,6 +1282,7 @@ function showFiche(id) {
   render();
   const card = document.getElementById("fiche-" + id);
   if (!card) return;
+  card.open = true;
   card.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "center" });
   card.classList.remove("flash");
   void card.offsetWidth;
@@ -1423,6 +1465,8 @@ function setView(v) {
     b.setAttribute("aria-selected", String(b.dataset.v === v)));
   document.getElementById("grid").hidden = v !== "liste";
   document.getElementById("mapview").hidden = v !== "carte";
+  document.getElementById("itineraires").hidden = v !== "jours";
+  document.querySelector(".toolbar").hidden = v === "jours";   // rien à filtrer sur les journées
   if (v === "carte") drawMap();
 }
 
@@ -1451,6 +1495,12 @@ mapchips.addEventListener("click", e => {
   drawMap();
 });
 
+addEventListener("resize", () => {
+  if (WIDE() === wasWide) return;      // on ne replie que si on change de format
+  wasWide = WIDE();
+  syncCards();
+});
+
 let resizeTimer;
 addEventListener("resize", () => {
   if (document.getElementById("mapview").hidden) return;
@@ -1466,8 +1516,9 @@ document.getElementById("groups").addEventListener("click", e => {
   const b = e.target.closest(".see");
   if (!b) return;
   state.groupe = b.dataset.g;
+  setView("liste");
   render();
-  document.querySelector(".toolbar").scrollIntoView({
+  document.querySelector(".sticky-bar").scrollIntoView({
     behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
     block: "start"
   });
